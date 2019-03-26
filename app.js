@@ -1,6 +1,6 @@
 const http = require('http');
 const port = 8080;
-const ip = '127.0.0.1';
+const ip = '0.0.0.0';
 
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
