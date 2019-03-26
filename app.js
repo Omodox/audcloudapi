@@ -1,10 +1,8 @@
-const http = require('http');
-const port = 8080;
-const ip = '185.143.145.35';
-
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World');
-}).listen(port, ip);
-
-console.log(`server is running on ${ip}:${port}`);
+const http = require("http");
+http.createServer(function(request,response){
+     
+    response.end("Hello NodeJS!");
+     
+}).listen(80, "127.0.0.1",function(){
+    console.log("Сервер начал прослушивание запросов на порту 80");
+});
