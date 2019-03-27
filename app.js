@@ -23,21 +23,18 @@ app.get('/',function(req,res){
 })
 
 app.post('/performer', function (req, res) {
-    console.log(req.body);
-       db.collection('performers').insert(req.body);
-    res.send(req.body);
+    const url = 'mongodb://localhost:27017';
+    const dbName = 'audcloud';
+        MongoClient.connect(url, function(err, client) {
+            const db = client.db(dbName);
+   db.collection('performes').insert(req.body);
+
+          }); 
+       res.send(req.body);
 });
 
 app.listen(80, function() {
     console.log('ok');
 })
 
-MongoClient.connect('mongodb://localhost:27017', function(err, client) {
-    if (err) {
-        res.send(err);
-    }
-    const db = client.db('audcloud');
-// db.collection('audio').insert(req.body.track);
-
-  });
 
