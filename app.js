@@ -33,7 +33,9 @@ app.listen(80, function() {
 })
 
 MongoClient.connect('mongodb://localhost:27017', function(err, client) {
-
+    if (err) {
+        res.send(err);
+    }
     const db = client.db('audcloud');
 // db.collection('audio').insert(req.body.track);
 
