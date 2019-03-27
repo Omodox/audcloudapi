@@ -27,7 +27,7 @@ app.post('/performer', function (req, res) {
     const dbName = 'audcloud';
         MongoClient.connect(url, function(err, client) {
             const db = client.db(dbName);
-   db.collection('performes').insert(req.body);
+   db.collection('performers').insert(req.body);
 
           }); 
        res.send(req.body);
