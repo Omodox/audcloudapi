@@ -31,9 +31,10 @@ app.post('/performer', function (req, res) {
             console.log(req.body);
             console.log(req);
    db.collection('performers').insert(req.body);
-
+   res.send(req);
+   res.send(req.body);
           }); 
-       res.send(req.body);
+   
 });
 
 
