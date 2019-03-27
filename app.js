@@ -22,19 +22,24 @@ app.get('/',function(req,res){
     res.send('hello world 2');
 })
 
+
 app.post('/performer', function (req, res) {
     const url = 'mongodb://localhost:27017';
     const dbName = 'audcloud';
         MongoClient.connect(url, function(err, client) {
             const db = client.db(dbName);
+            console.log(req.body);
+            console.log(req);
    db.collection('performers').insert(req.body);
 
           }); 
        res.send(req.body);
 });
 
+
 app.listen(80, function() {
     console.log('ok');
 })
+
 
 
