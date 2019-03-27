@@ -19,7 +19,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/',function(req,res){
-    res.send('hello world');
+    res.send('hello world 2');
+})
+
+app.get('/performer2',function(req,res){
+    res.send('performer');
 })
 
 app.post('/performer', function (req, res) {
