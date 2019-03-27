@@ -25,14 +25,15 @@ app.get('/',function(req,res){
 app.post('/performer', function (req, res) {
     console.log(req.body);
        db.collection('performers').insert(req.body);
-    res.send('post data');
+    res.send(req.body);
 });
 
 app.listen(80, function() {
     console.log('ok');
 })
 
-MongoClient.connect('mongodb://localhost:27017/audcloud', function(err, client) {
+MongoClient.connect('mongodb://localhost:27017', function(err, client) {
+
     const db = client.db('audcloud');
 // db.collection('audio').insert(req.body.track);
 
