@@ -22,12 +22,9 @@ app.get('/',function(req,res){
     res.send('hello world 2');
 })
 
-app.get('/performer2',function(req,res){
-    res.send('performer');
-})
-
 app.post('/performer', function (req, res) {
     console.log(req.body);
+       db.collection('performers').insert(req.body);
     res.send('post data');
 });
 
@@ -35,4 +32,9 @@ app.listen(80, function() {
     console.log('ok');
 })
 
-// MongoClient.connect('mongodb://localhost:27017/audcloud')
+MongoClient.connect('mongodb://localhost:27017/audcloud', function(err, client) {
+    const db = client.db('audcloud');
+// db.collection('audio').insert(req.body.track);
+
+  });
+
