@@ -38,8 +38,8 @@ app.listen(80, function() {
 const url = 'mongodb://localhost:27017';
 const dbName = 'audcloud';
     MongoClient.connect(url, function(err, client) {
-        const db = client.db(dbName);
-
+         db = client.db(dbName);
+        
       }); 
 
 
