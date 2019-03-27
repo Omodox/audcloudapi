@@ -25,7 +25,7 @@ app.get('/',function(req,res){
 
 app.post('/performer', function (req, res) {
     // db.collection('performers').insert(req.body);
-          res.send(req);
+          res.send(req.body);
     
 });
 
