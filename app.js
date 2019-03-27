@@ -24,23 +24,23 @@ app.get('/',function(req,res){
 
 
 app.post('/performer', function (req, res) {
-    const url = 'mongodb://localhost:27017';
-    const dbName = 'audcloud';
-        MongoClient.connect(url, function(err, client) {
-            const db = client.db(dbName);
-            console.log(req.body);
-            console.log(req);
-   db.collection('performers').insert(req.body);
-   res.send(req);
-   res.send(req.body);
-          }); 
-   
+    db.collection('performers').insert(req.body);
+          res.send(req);
+    
 });
 
 
 app.listen(80, function() {
     console.log('ok');
 })
+
+
+const url = 'mongodb://localhost:27017';
+const dbName = 'audcloud';
+    MongoClient.connect(url, function(err, client) {
+        const db = client.db(dbName);
+
+      }); 
 
 
 
