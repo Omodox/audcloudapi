@@ -25,16 +25,16 @@ app.post('/traks', function (req, res) {
     
 //    console.log(req.body);
 //    console.log(req.body.length);
-    req.body.forEach(element => {
+    // req.body.forEach(element => {
 
-        var perfromer = {
-            zId : element.name,
-            perfromerName : element.perfromerName,
-            trackName : element.trackName,
-        }
-        db.collection('performers').insert(perfromer);
-        console.log(perfromer);
-    });
+    //     var perfromer = {
+    //         zId : element.name,
+    //         perfromerName : element.perfromerName,
+    //         trackName : element.trackName,
+    //     }
+    //     db.collection('performers').insert(perfromer);
+    //     console.log(perfromer);
+    // });
 
     
           res.send('lorem');
