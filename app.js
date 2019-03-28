@@ -31,7 +31,7 @@ app.post('/traks', function (req, res) {
             perfromerName : element.perfromerName,
             trackName : element.trackName,
         }
-        db.collection('performers').insert(perfromer);
+        db.collection('traks').insert(perfromer);
         console.log(perfromer);
 
 
