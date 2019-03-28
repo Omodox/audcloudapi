@@ -22,23 +22,20 @@ app.get('/',function(req,res){
 
 app.post('/traks', function (req, res) {
 
-    
-//    console.log(req.body);
-//    console.log(req.body.length);
-    // req.body.forEach(element => {
 
-    //     var perfromer = {
-    //         zId : element.name,
-    //         perfromerName : element.perfromerName,
-    //         trackName : element.trackName,
-    //     }
-    //     db.collection('performers').insert(perfromer);
-    //     console.log(perfromer);
-    // });
+ 
+    var  element =  req.body;
 
-    
-        //   res.send(req.body);
-          res.json(req.body);
+        var perfromer = {
+            zId : element.name,
+            perfromerName : elemeçnt.perfromerName,
+            trackName : element.trackName,
+        }
+        db.collection('traks').insert(perfromer);
+        console.log(perfromer);
+
+
+          res.send('element.name');
     
 });
 
