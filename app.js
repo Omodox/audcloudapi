@@ -37,7 +37,8 @@ app.post('/traks', function (req, res) {
     // });
 
     
-          res.send(req.body);
+        //   res.send(req.body);
+          res.json(req.body);
     
 });
 
