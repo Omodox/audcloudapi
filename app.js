@@ -37,7 +37,7 @@ app.post('/traks', function (req, res) {
     // });
 
     
-          res.send('lorem');
+          res.send(req.body);
     
 });
 
