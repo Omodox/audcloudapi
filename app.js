@@ -26,14 +26,43 @@ app.post('/traks', function (req, res) {
     console.log(req.body);
     var element = req.body;
     
-        var perfromer = {
+        var trak = {
             zId : element.zId,
-            perfromerName : element.perfromerName,
+            performerName : element.performerName,
             trackName : element.trackName,
+            perfromerId :null,
         }
 
-        db.collection('traks').insert(perfromer);
-        console.log(perfromer);
+        db.collection('performers').find({performerName:element.performerName}).toArray(function (err,docs) {
+     console.log(docs);
+            if (docs == '') {
+          
+                var performer =  {"performerName": element.performerName }
+                db.collection('performers').insertOne(performer, function(err,docsInserted){
+                   
+                    trak.perfromerId = docsInserted.ops[0]._id;
+                    createTrak();
+                });
+
+            }
+
+            else {
+     
+                trak.perfromerId = docs[0]._id;
+                createTrak();
+            }
+
+
+            });
+
+            function createTrak() {
+                var searchParameter = { $and: [ { performerName: trak.performerName }, { trackName: trak.trackName } ]};
+                db.collection('traks').find(searchParameter).toArray(function (err,docs) { 
+                    if (docs == '') {
+                        db.collection('traks').insert(trak);
+                    }
+                });
+            }
 
     
           res.send(req.body.perfromerName);
@@ -49,6 +78,17 @@ app.get('/traks', function (req, res) {
       });
 
   });    
+
+
+  app.get('/performers', function (req, res) {
+
+  
+
+    db.collection('performers').find().toArray(function (err,docs) {
+      res.send(docs);
+      });
+
+  }); 
 
 
 
