@@ -22,20 +22,21 @@ app.get('/',function(req,res){
 
 app.post('/traks', function (req, res) {
 
+    
+   var element = req.body;
 
- 
-    var  element =  req.body;
-
+    
         var perfromer = {
             zId : element.name,
-            perfromerName : elemeçnt.perfromerName,
+            perfromerName : element.perfromerName,
             trackName : element.trackName,
         }
-        db.collection('traks').insert(perfromer);
+        db.collection('performers').insert(perfromer);
         console.log(perfromer);
 
 
-          res.send('element.name');
+    
+          res.send('lorem');
     
 });
 
