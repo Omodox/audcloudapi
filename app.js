@@ -1,12 +1,3 @@
-// const http = require("http");
-// http.createServer(function(request,response){
-     
-//     response.end("Hello NodeJS!");
-     
-// }).listen(80, "185.143.145.35",function(){
-//     console.log("Сервер начал прослушивание запросов на порту 80");
-// });
-
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -14,9 +5,14 @@ var MongoClient = require('mongodb').MongoClient;
 var db;
 
 
+
+
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+
+
 
 
 app.get('/',function(req,res){
@@ -26,6 +22,9 @@ app.get('/',function(req,res){
 
 app.post('/traks', function (req, res) {
 
+    
+//    console.log(req.body);
+//    console.log(req.body.length);
     req.body.forEach(element => {
 
         var perfromer = {
@@ -34,11 +33,11 @@ app.post('/traks', function (req, res) {
             trackName : element.trackName,
         }
         db.collection('performers').insert(perfromer);
-        
+        console.log(perfromer);
     });
 
     
-          res.send(req);
+          res.send('lorem');
     
 });
 
