@@ -24,14 +24,21 @@ app.get('/',function(req,res){
 })
 
 
-app.post('/performer', function (req, res) {
-  
+app.post('/traks', function (req, res) {
+
+    req.body.forEach(element => {
+
         var perfromer = {
-            name : req.body.name,
-            url : req.body.url,
+            zId : element.name,
+            perfromerName : element.perfromerName,
+            trackName : element.trackName,
         }
         db.collection('performers').insert(perfromer);
-          res.send(perfromer);
+        
+    });
+
+    
+          res.send(req);
     
 });
 
