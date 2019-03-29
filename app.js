@@ -107,7 +107,8 @@ app.post('/tracks', function (req, res) {
   app.get('/tracks', function (req, res) {
 
     var performerid = req.query.performerid; 
-    db.collection('tracks').find({performerId: performerid}).toArray(function (err,docs) {
+    console.log(performerid);
+    db.collection('tracks').find({performerId:performerid}).toArray(function (err,docs) {
       res.send(docs);
       });
 
