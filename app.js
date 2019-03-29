@@ -116,7 +116,7 @@ app.get('/traks', function (req, res) {
   app.get('/tracks/:id', function (req, res) {
 
   
-    db.collection('traks').find({performerName: req.params.id}).toArray(function (err,docs) {
+    db.collection('traks').find({performerId: req.params.id}).toArray(function (err,docs) {
       res.send(docs);
       });
 
