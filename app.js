@@ -60,7 +60,7 @@ app.post('/tracks', function (req, res) {
                 var performer =  {"performerName": element.performerName }
                 db.collection('performers').insertOne(performer, function(err,docsInserted){
                    
-                    track.perfromerId = docsInserted.ops[0]._id;
+                    track.performerId = docsInserted.ops[0]._id;
                     createTrack();
                 });
 
@@ -68,7 +68,7 @@ app.post('/tracks', function (req, res) {
 
             else {
      
-                track.perfromerId = docs[0]._id;
+                track.performerId = docs[0]._id;
                 createTrack();
             }
 
