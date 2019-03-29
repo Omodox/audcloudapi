@@ -41,12 +41,12 @@ app.get('/',function(req,res){
 })
 
 
-app.post('/traks', function (req, res) {
+app.post('/tracks', function (req, res) {
 
     console.log(req.body);
     var element = req.body;
     
-        var trak = {
+        var track = {
             zId : element.zId,
             performerName : element.performerName,
             trackName : element.trackName,
@@ -60,26 +60,26 @@ app.post('/traks', function (req, res) {
                 var performer =  {"performerName": element.performerName }
                 db.collection('performers').insertOne(performer, function(err,docsInserted){
                    
-                    trak.perfromerId = docsInserted.ops[0]._id;
-                    createTrak();
+                    track.perfromerId = docsInserted.ops[0]._id;
+                    createTrack();
                 });
 
             }
 
             else {
      
-                trak.perfromerId = docs[0]._id;
-                createTrak();
+                track.perfromerId = docs[0]._id;
+                createTrack();
             }
 
 
             });
 
-            function createTrak() {
-                var searchParameter = { $and: [ { performerName: trak.performerName }, { trackName: trak.trackName } ]};
-                db.collection('traks').find(searchParameter).toArray(function (err,docs) { 
+            function createTrack() {
+                var searchParameter = { $and: [ { performerName: track.performerName }, { trackName: track.trackName } ]};
+                db.collection('tracks').find(searchParameter).toArray(function (err,docs) { 
                     if (docs == '') {
-                        db.collection('traks').insert(trak);
+                        db.collection('tracks').insert(track);
                     }
                 });
             }
@@ -89,9 +89,9 @@ app.post('/traks', function (req, res) {
     
 });
 
-app.get('/traks', function (req, res) {
+app.get('/tracks', function (req, res) {
 
-    db.collection('traks').find().toArray(function (err,docs) {
+    db.collection('tracks').find().toArray(function (err,docs) {
       res.send(docs);
       });
 
@@ -116,7 +116,7 @@ app.get('/traks', function (req, res) {
   app.get('/tracks/:id', function (req, res) {
 
   
-    db.collection('traks').find({performerId: req.params.id}).toArray(function (err,docs) {
+    db.collection('tracks').find({performerId: req.params.id}).toArray(function (err,docs) {
       res.send(docs);
       });
 
