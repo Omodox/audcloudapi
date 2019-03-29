@@ -89,15 +89,6 @@ app.post('/tracks', function (req, res) {
     
 });
 
-app.get('/tracks', function (req, res) {
-
-    db.collection('tracks').find().toArray(function (err,docs) {
-      res.send(docs);
-      });
-
-  });    
-
-
 
 
 
@@ -115,7 +106,7 @@ app.get('/tracks', function (req, res) {
   
   app.get('/tracks', function (req, res) {
 
-    var performerid = req.query.performerid; // $_GET["performerid"]
+    var performerid = req.query.performerid; 
     db.collection('tracks').find({performerId: performerid}).toArray(function (err,docs) {
       res.send(docs);
       });
