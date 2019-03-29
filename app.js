@@ -50,7 +50,7 @@ app.post('/traks', function (req, res) {
             zId : element.zId,
             performerName : element.performerName,
             trackName : element.trackName,
-            perfromerId :null,
+            performerId :null,
         }
 
         db.collection('performers').find({performerName:element.performerName}).toArray(function (err,docs) {
