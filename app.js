@@ -113,10 +113,10 @@ app.get('/tracks', function (req, res) {
   }); 
 
   
-  app.get('/tracks/:id', function (req, res) {
+  app.get('/tracks', function (req, res) {
 
-  
-    db.collection('tracks').find({performerId: req.params.id}).toArray(function (err,docs) {
+    var performerid = req.query.performerid; // $_GET["performerid"]
+    db.collection('tracks').find({performerId: performerid}).toArray(function (err,docs) {
       res.send(docs);
       });
 
