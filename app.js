@@ -2,6 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 var db;
 
 
@@ -106,11 +107,9 @@ app.post('/tracks', function (req, res) {
   
   app.get('/tracks', function (req, res) {
 
-    var performerid = req.query.performerid; 
-    db.collection('tracks').find({performerId:performerid}).toArray(function (err,docs) {
-        if (err) {
-            res.send(err);
-        }
+    var perfid = req.query.performerid; 
+    db.collection('tracks').find({performerId:ObjectId(perfid)}).toArray(function (err,docs) {
+
       res.send(docs);
       });
 
