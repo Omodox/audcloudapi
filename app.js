@@ -113,7 +113,7 @@ app.get('/traks', function (req, res) {
   }); 
 
   
-  app.get('/traсks/:id', function (req, res) {
+  app.get('/tracks/:id', function (req, res) {
 
   
     db.collection('traks').find({_id: req.params.id}).toArray(function (err,docs) {
