@@ -46,6 +46,11 @@ app.post('/tracks', function (req, res) {
 
     console.log(req.body);
     var element = req.body;
+
+
+
+      element.performerName =  element.performerName.replace('&amp;amp;', '&');
+      element.trackName =  element.trackName.replace('&amp;amp;', '&');
     
         var track = {
             zId : element.zId,
