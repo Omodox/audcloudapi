@@ -52,16 +52,21 @@ app.post('/tracks', function (req, res) {
             performerName : element.performerName,
             trackName : element.trackName,
             performerId :null,
+            keys: null,
         }
 
         db.collection('performers').find({performerName:element.performerName}).toArray(function (err,docs) {
-     console.log(docs);
+
+            var keys =  performerName.split(' ');
+            var trackKeys = keys.concat(trackName.split(' '));
+            track.keys = trackKeys;
             if (docs == '') {
           
-                var performer =  {"performerName": element.performerName }
+                var performer =  {"performerName": element.performerName, "keys": keys }
                 db.collection('performers').insertOne(performer, function(err,docsInserted){
                    
                     track.performerId = docsInserted.ops[0]._id;
+                   
                     createTrack();
                 });
 
