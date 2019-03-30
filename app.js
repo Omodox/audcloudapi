@@ -58,6 +58,10 @@ app.post('/tracks', function (req, res) {
             trackName : element.trackName,
             performerId :null,
             keys: null,
+            genres: null,
+            duration: null,
+            auditions: null,
+            errors: null,
         }
 
         db.collection('performers').find({performerName:element.performerName}).toArray(function (err,docs) {
@@ -67,7 +71,12 @@ app.post('/tracks', function (req, res) {
             track.keys = trackKeys;
             if (docs == '') {
           
-                var performer =  {"performerName": element.performerName, "keys": keys }
+                var performer =  {
+                    "performerName": element.performerName,
+                     "keys": keys,
+                     "genres": null,
+
+                     }
                 db.collection('performers').insertOne(performer, function(err,docsInserted){
                    
                     track.performerId = docsInserted.ops[0]._id;
