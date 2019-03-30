@@ -57,8 +57,8 @@ app.post('/tracks', function (req, res) {
 
         db.collection('performers').find({performerName:element.performerName}).toArray(function (err,docs) {
 
-            var keys =  performerName.split(' ');
-            var trackKeys = keys.concat(trackName.split(' '));
+            var keys =  element.performerName.split(' ');
+            var trackKeys = keys.concat(track.trackName.split(' '));
             track.keys = trackKeys;
             if (docs == '') {
           
