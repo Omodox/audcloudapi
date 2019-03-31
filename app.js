@@ -135,10 +135,9 @@ app.post('/tracks', function (req, res) {
   }); 
 
   app.get('/search', function (req, res) {
-
     var search = req.query.search; 
      search =  search.split(' ');
-    db.collection('tracks').find({ keys: { $all: search } }).toArray(function (err,docs) {
+    db.collection('tracks').find({ keys: { $all: { $regex : new RegExp(search, "i") } } }).toArray(function (err,docs) {
 
       res.send(docs);
       });
