@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/',function(req,res){
     
-    res.send('Hello ' + req.token );
+    res.send({ token: req.token});
 })
 
 
