@@ -144,7 +144,7 @@ app.post('/tracks', function (req, res) {
         element =  new RegExp(element, 'i');
         searchArray.push(element);
      });
-    db.collection('tracks').find({ keys: { $all: search } }).toArray(function (err,docs) {
+    db.collection('tracks').find({ keys: { $all: searchArray } }).toArray(function (err,docs) {
 
       res.send(docs);
       });
