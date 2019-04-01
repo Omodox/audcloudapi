@@ -38,6 +38,9 @@ app.post('/tracks', function (req, res) {
 
       element.performerName =  element.performerName.replace('&amp;amp;', '&');
       element.trackName =  element.trackName.replace('&amp;amp;', '&');
+      element.trackName =  element.trackName.replace('(', '');
+      element.trackName =  element.trackName.replace(')', '');
+      element.trackName =  element.trackName.replace('-', ' ');
       var TimeNow = Math.floor(new Date() / 1000);
         var track = {
             zId : element.zId,
@@ -50,9 +53,10 @@ app.post('/tracks', function (req, res) {
             auditions: 0,
             errors: 0,
             createdTime: TimeNow,
-            rating: null,
+            rating: 0,
             auditionsTime: 0,
             likes: 0,
+            dislikes: 0,
 
         }
 
