@@ -38,7 +38,7 @@ app.post('/tracks', function (req, res) {
 
       element.performerName =  element.performerName.replace('&amp;amp;', '&');
       element.trackName =  element.trackName.replace('&amp;amp;', '&');
-      var TimeNow = new Date.now().getUnixTime();
+      var TimeNow = Math.floor(new Date() / 1000);
         var track = {
             zId : element.zId,
             performerName : element.performerName,
@@ -138,7 +138,7 @@ app.post('/trackDuration', function (req, res) {
 // 
 app.post('/trackRating', function (req, res) {
     var element = req.body;
-    var TimeNow = new Date.now().getUnixTime()
+    var TimeNow = Math.floor(new Date() / 1000);
     db.collection('tracks').find({_id:ObjectId(element._id)}).toArray(function (err,track) {
             var auditionsTime = element.auditionsTime +  track.auditionsTime;
         updateTrack = {
