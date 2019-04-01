@@ -46,9 +46,9 @@ app.post('/tracks', function (req, res) {
             performerId :null,
             keys: null,
             genres: null,
-            duration: null,
-            auditions: null,
-            errors: null,
+            duration: 0,
+            auditions: 0,
+            errors: 0,
             createdTime: TimeNow,
             rating: null,
             auditionsTime: 0,
@@ -140,9 +140,9 @@ app.post('/trackRating', function (req, res) {
     var element = req.body;
     var TimeNow = Math.floor(new Date() / 1000);
     db.collection('tracks').find({_id:ObjectId(element._id)}).toArray(function (err,track) {
-            var auditionsTime = element.auditionsTime +  track.auditionsTime;
-            var auditions = track.auditions + 1;
-            var rating = auditionsTime  / (TimeNow - track.createdTime);
+            var auditionsTime = parseInt(element.auditionsTime) +  parseInt(track.auditionsTime);
+            var auditions = parseInt(track.auditions) + 1;
+            var rating = auditionsTime  / (TimeNow - parseInt(track.createdTime));
         updateTrack = {
             auditions: auditions,
             auditionsTime: auditionsTime,
