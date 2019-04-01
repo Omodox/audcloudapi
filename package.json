@@ -21,6 +21,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-bearer-token": "^2.2.0",
-    "mongodb": "^3.2.2"
+    "mongodb": "^3.2.2",
+    "request": "^2.88.0"
   }
 }

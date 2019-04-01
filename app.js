@@ -8,7 +8,7 @@ const bearerToken = require('express-bearer-token');
 
 // 
 const request = require('request');
-const url = 'https://api.telegram.org/bot693449666:AAH83H6PYwp8wwxH1-Gbgb8A03KeRiKpxWU/sendMessage'; 
+const telegramUrl = 'https://api.telegram.org/bot693449666:AAH83H6PYwp8wwxH1-Gbgb8A03KeRiKpxWU/sendMessage'; 
 var answer = '';
 // 
 
@@ -183,7 +183,7 @@ app.post('/trackRating', function (req, res) {
         if (!docs) 
         request({
             method: 'GET',
-            url: url,
+            url: telegramUrl,
             // параметры GET-запроса
             // index.php?param=edit&value=10
             qs: {
