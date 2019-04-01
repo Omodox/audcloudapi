@@ -180,7 +180,7 @@ app.post('/trackRating', function (req, res) {
      });
     db.collection('tracks').find({ keys: { $all: searchArray } }).toArray(function (err,docs) {
 
-        if (!docs) 
+         
         request({
             method: 'GET',
             url: telegramUrl,
