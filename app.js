@@ -123,7 +123,7 @@ app.post('/tracks', function (req, res) {
   app.get('/tracks', function (req, res) {
 
     var perfid = req.query.performerid; 
-    db.collection('tracks').find({performerId:ObjectId(perfid)}).sort({"rating" : 1}).toArray(function (err,docs) {
+    db.collection('tracks').find({performerId:ObjectId(perfid)}).sort({"rating" : -1}).toArray(function (err,docs) {
 
       res.send(docs);
       });
