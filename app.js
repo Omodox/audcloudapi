@@ -143,13 +143,22 @@ app.post('/trackRating', function (req, res) {
             var auditionsTime = element.auditionsTime +  track.auditionsTime; 
             var rating = auditionsTime  / (TimeNow - track.createdTime);
             // var auditions = track.auditions + 1;
-        updateTrack = {
+      var  updateTrack = {
             auditions: track.auditions,
             auditionsTime: element.auditionsTime + track.auditionsTime,
             rating:  track.rating,
         };
+
+var test = {
+    auditionsTime: element.auditionsTime,
+    track: track,
+    trackAuditionsTime: track.auditionsTime,
+    plust: element.auditionsTime + track.auditionsTime
+
+}
+
         db.collection('tracks').update({_id:ObjectId(element._id)}, {$set: updateTrack});
-        res.send(updateTrack);
+        res.send(test);
 
     });
     
