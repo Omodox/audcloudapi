@@ -143,7 +143,7 @@ app.post('/trackRating', function (req, res) {
             var auditionsTime = element.auditionsTime +  track.auditionsTime; 
             var rating = auditionsTime  / (TimeNow - track.createdTime);
         updateTrack = {
-            auditions: parseInt(patrack.auditions) + 1,
+            auditions: parseInt(track.auditions) + 1,
             auditionsTime: auditionsTime,
             rating:  rating,
         };
