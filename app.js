@@ -149,7 +149,7 @@ app.post('/trackRating', function (req, res) {
             rating:  rating,
         };
         db.collection('tracks').update({_id:ObjectId(element._id)}, {$set: updateTrack});
-        res.send(updateTrack);
+        res.send(auditionsTime);
 
     });
     
