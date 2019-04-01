@@ -140,16 +140,15 @@ app.post('/trackRating', function (req, res) {
     var element = req.body;
     var TimeNow = Math.floor(new Date() / 1000);
     db.collection('tracks').find({_id:ObjectId(element._id)}).toArray(function (err,track) {
-            var auditionsTime = parseInt(element.auditionsTime) +  parseInt(track.auditionsTime);
-            var auditions = parseInt(track.auditions) + 1;
-            var rating = auditionsTime  / (TimeNow - parseInt(track.createdTime));
+            var auditionsTime = element.auditionsTime +  track.auditionsTime; 
+            var rating = auditionsTime  / (TimeNow - track.createdTime);
         updateTrack = {
-            auditions: auditions,
+            auditions: parseInt(patrack.auditions) + 1,
             auditionsTime: auditionsTime,
             rating:  rating,
         };
         db.collection('tracks').update({_id:ObjectId(element._id)}, {$set: updateTrack});
-        res.send(auditionsTime);
+        res.send(updateTrack);
 
     });
     
