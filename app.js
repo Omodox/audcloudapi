@@ -178,7 +178,7 @@ app.post('/trackRating', function (req, res) {
         element =  new RegExp(element, 'i');
         searchArray.push(element);
      });
-    db.collection('tracks').find({ keys: { $all: searchArray } }).toArray(function (err,docs) {
+    db.collection('tracks').find({ keys: { $all: searchArray } }).sort({"rating" : -1}).toArray(function (err,docs) {
 
          
         request({
