@@ -142,7 +142,7 @@ app.post('/trackRating', function (req, res) {
     db.collection('tracks').find({_id:ObjectId(element._id)}).toArray(function (err,track) {
             var auditionsTime = element.auditionsTime +  track.auditionsTime; 
             var rating = auditionsTime  / (TimeNow - track.createdTime);
-            var auditions = track;
+            var auditions = track.auditions + 1;
         updateTrack = {
             auditions: auditions,
             auditionsTime: auditionsTime,
