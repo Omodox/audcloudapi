@@ -121,6 +121,15 @@ app.post('/tracks', function (req, res) {
 
   }); 
 
+// 
+app.post('/trackDuration', function (req, res) {
+    var element = req.body;
+    db.collection('tracks').update({_id:ObjectId(element._id)}, {$set: {duration : element.duration}}).toArray(function (err,docs) {
+        res.send(docs);
+        });
+});
+// 
+
   app.get('/search', function (req, res) {
 
     var search = req.query.search; 
