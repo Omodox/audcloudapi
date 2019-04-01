@@ -49,6 +49,11 @@ app.post('/tracks', function (req, res) {
             duration: null,
             auditions: null,
             errors: null,
+            createdTime: Date.now().getUnixTime(),
+            rating: null,
+            auditionsTime: 0,
+            likes: 0,
+
         }
 
         db.collection('performers').find({performerName:element.performerName}).toArray(function (err,docs) {
@@ -126,6 +131,27 @@ app.post('/trackDuration', function (req, res) {
     var element = req.body;
     db.collection('tracks').update({_id:ObjectId(element._id)}, {$set: {duration : element.duration}});
         res.send(element);
+    
+});
+// 
+
+// 
+app.post('/trackRating', function (req, res) {
+    var element = req.body;
+ 
+    db.collection('tracks').find({_id:ObjectId(element._id)}).toArray(function (err,track) {
+            var auditionsTime = element.auditionsTime +  track.auditionsTime;
+        updateTrack = {
+            auditions: (track.auditions + 1),
+            auditionsTime: auditionsTime,
+            rating: auditionsTime  / (Date.now().getUnixTime() - createdTime) ,
+        };
+
+        db.collection('tracks').update({_id:ObjectId(element._id)}, {$set: updateTrack});
+        res.send(updateTrack);
+
+    });
+    
     
 });
 // 
