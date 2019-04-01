@@ -145,7 +145,7 @@ app.post('/trackRating', function (req, res) {
             // var auditions = track.auditions + 1;
         updateTrack = {
             auditions: track.auditions,
-            auditionsTime: element.auditionsTime,
+            auditionsTime: element.auditionsTime + track.auditionsTime,
             rating:  track.rating,
         };
         // db.collection('tracks').update({_id:ObjectId(element._id)}, {$set: updateTrack});
