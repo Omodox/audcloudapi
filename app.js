@@ -6,6 +6,11 @@ var ObjectId = require('mongodb').ObjectID;
 var cors = require('cors');
 const bearerToken = require('express-bearer-token');
 
+// 
+const request = require('request');
+const url = 'https://api.telegram.org/bot693449666:AAH83H6PYwp8wwxH1-Gbgb8A03KeRiKpxWU/sendMessage'; 
+var answer = '';
+// 
 
 var db;
 
@@ -175,10 +180,36 @@ app.post('/trackRating', function (req, res) {
      });
     db.collection('tracks').find({ keys: { $all: searchArray } }).toArray(function (err,docs) {
 
+        if (!docs) 
+        request({
+            method: 'GET',
+            url: url,
+            // параметры GET-запроса
+            // index.php?param=edit&value=10
+            qs: {
+             chat_id: '-266590437',
+             text: req.query.search
+            }
+           }, function (error, response, body) {
+           if (!error && response.statusCode == 200) {
+             // console.log(body);
+             // валидация и 
+             // обработка полученного ответа, заголовков
+             answer = body;
+           }
+         })
+
+
       res.send(docs);
       });
 
+
+
   }); 
+
+
+
+
 
 
   
