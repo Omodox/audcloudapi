@@ -20,6 +20,9 @@ var db;
 var app = express();
 
 
+app.use(express.static(__dirname, { dotfiles: 'allow' } ));
+
+
 app.use(cors());
 app.use(bearerToken());
 
