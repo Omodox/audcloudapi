@@ -6,8 +6,8 @@ var ObjectId = require('mongodb').ObjectID;
 var cors = require('cors');
 const bearerToken = require('express-bearer-token');
 const fs = require('fs')
-const http = require('http');
 const https = require('https');
+var crypto = require('crypto');
 
 // 
 const request = require('request');
@@ -16,7 +16,7 @@ var answer = '';
 // 
 
 var db;
-
+var secretKey = crypto.createCipher('aes-128-cbc', '887dfS2z3R');
 
 
 
@@ -119,6 +119,29 @@ app.post('/tracks', function (req, res) {
     
 });
 
+  
+app.post('/registration', function (req, res) {
+    var element = req.body;
+
+ 
+    var passwordHash = secretKey.update(element.password, 'utf8', 'hex');
+    passwordHash += passwordHash.update.final('hex');
+
+    var token = passwordHash + Math.floor(new Date() / 1000);
+    var session = secretKey.update(token, 'utf8', 'hex')
+        session += session.update.final('hex'); 
+    
+    var user = {
+        userEmail: element.userEmail,
+        userName: element.userName,
+        createdDate: new Date(),
+        passwordHash: passwordHash,
+        role: "user",
+        seesions: session,
+    };
+
+    res.send(user);
+}
 
 
 
