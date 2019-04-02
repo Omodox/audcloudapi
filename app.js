@@ -127,6 +127,13 @@ function encrypt(text){
     return crypted;
   }
 
+  function decrypt(text){
+    var cipher = crypto.createCipher('aes-128-cbc','887dfS2z3R')
+    var dec = decipher.update(text,'hex','utf8')
+    dec += decipher.final('utf8');
+    return dec;
+  }
+
   
 app.post('/registration', function (req, res) {
     var element = req.body;
@@ -136,7 +143,6 @@ app.post('/registration', function (req, res) {
     var token = passwordHash + Math.floor(new Date() / 1000);
     var session = encrypt(token);
 
-    
     var user = {
         userEmail: element.userEmail,
         userName: element.userName,
@@ -145,6 +151,10 @@ app.post('/registration', function (req, res) {
         role: "user",
         seesions: session,
     };
+
+    if (element.userEmail && element.userEmail && element.userPassword) {
+
+    }
 
     res.send(user);
 });
