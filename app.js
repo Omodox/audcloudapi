@@ -1,10 +1,17 @@
-
+const https = require('https');
+const fs = require('fs');
 var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var cors = require('cors');
 const bearerToken = require('express-bearer-token');
+
+// Настройка сервера Express
+const options = {
+    cert: fs.readFileSync('./sslcert/fullchain.pem'),
+    key: fs.readFileSync('./sslcert/privkey.pem')
+};
 
 // 
 const request = require('request');
@@ -13,6 +20,7 @@ var answer = '';
 // 
 
 var db;
+
 
 
 
@@ -219,10 +227,10 @@ app.post('/trackRating', function (req, res) {
 
 
 
-
-app.listen(80, function() {
-    console.log('ok');
-})
+  https.createServer(options, app).listen(80);
+// app.listen(80, function() {
+//     console.log('ok');
+// })
 
 
 const url = 'mongodb://localhost:27017';
