@@ -221,18 +221,15 @@ app.post('/trackRating', function (req, res) {
 
 
 
+
+
   
-  http.createServer(app).listen(80, () => {
-    console.log('Listening...')
-  })
-  
-  https.createServer({
-   
+  const options = {
     cert: fs.readFileSync('/etc/letsencrypt/live/audcloud.top/privkey.pem'),
     key: fs.readFileSync('/etc/letsencrypt/live/audcloud.top/fullchain.pem')
-  }, app).listen(443, () => {
-    console.log('Listening...')
-  })
+};
+express.listen(80);
+https.createServer(options, app).listen(443);
 
 
 
