@@ -221,15 +221,19 @@ app.post('/trackRating', function (req, res) {
 
 
 
+// Certificate
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/audcloud.top/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/audcloud.top/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/audcloud.top/chain.pem', 'utf8');
 
-
-  
-  const options = {
-    cert: fs.readFileSync('./etc/letsencrypt/live/audcloud.top/privkey.pem'),
-    key: fs.readFileSync('./etc/letsencrypt/live/audcloud.top/fullchain.pem')
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
 };
 
-https.createServer(options, app).listen(443);
+
+https.createServer(credentials, app).listen(443);
 
 
 
