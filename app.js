@@ -16,7 +16,7 @@ var answer = '';
 // 
 
 var db;
-var secretKey = crypto.createCipher('aes-128-cbc', '887dfS2z3R');
+
 
 
 
@@ -119,17 +119,23 @@ app.post('/tracks', function (req, res) {
     
 });
 
+
+function encrypt(text){
+    var cipher = crypto.createCipher('aes-128-cbc','887dfS2z3R')
+    var crypted = cipher.update(text,'utf8','hex')
+    crypted += cipher.final('hex');
+    return crypted;
+  }
+
   
 app.post('/registration', function (req, res) {
     var element = req.body;
 
- 
-    var passwordHash = secretKey.update(element.password, 'utf8', 'hex');
-    passwordHash += passwordHash.final('hex');
 
+    var passwordHash = encrypt(element.password);
     var token = passwordHash + Math.floor(new Date() / 1000);
-    var session = secretKey.update(token, 'utf8', 'hex')
-        session += session.final('hex'); 
+    var session = encrypt(token);
+
     
     var user = {
         userEmail: element.userEmail,
