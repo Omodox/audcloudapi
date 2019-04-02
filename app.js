@@ -141,7 +141,7 @@ app.post('/registration', function (req, res) {
     };
 
     res.send(user);
-}
+});
 
 
 
