@@ -17,8 +17,9 @@ var answer = '';
 
 var db;
 
-
 var app = express();
+
+
 
 // app.use(express.static(__dirname, { dotfiles: 'allow' } ));
 
@@ -29,14 +30,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-
-
-require('./routes')(app);
-
-
-
-
-
+const tracksRouter = require('./api/routes/tracks.js');
+app.use('/tracks', tracksRouter);
 
 
 
@@ -51,10 +46,7 @@ const credentials = {
 	ca: ca
 };
 
-
 // https.createServer(credentials, app).listen(443);
-
-
 
 app.listen(8080, function() {
     console.log('ok');
