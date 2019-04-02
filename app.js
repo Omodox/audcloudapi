@@ -5,6 +5,8 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var cors = require('cors');
 const bearerToken = require('express-bearer-token');
+const fs = require('fs')
+const https = require('https')
 
 // 
 const request = require('request');
@@ -13,6 +15,9 @@ var answer = '';
 // 
 
 var db;
+
+
+
 
 
 
@@ -216,13 +221,23 @@ app.post('/trackRating', function (req, res) {
 
 
   
+  http.createServer(app).listen(80, () => {
+    console.log('Listening...')
+  })
+  
+  https.createServer({
+    key: fs.readFileSync('/etc/letsencrypt/path/to/key.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/path/to/cert.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/path/to/chain.pem')
+  }, app).listen(443, () => {
+    console.log('Listening...')
+  })
 
 
 
-
-app.listen(80, function() {
-    console.log('ok');
-})
+// app.listen(80, function() {
+//     console.log('ok');
+// })
 
 
 const url = 'mongodb://localhost:27017';
