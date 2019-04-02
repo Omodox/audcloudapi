@@ -1,4 +1,5 @@
-
+module.exports = function (app) {
+   
 
 
 
@@ -219,3 +220,9 @@ app.post('/trackRating', function (req, res) {
 
 
   }); 
+
+
+
+};
+
+
