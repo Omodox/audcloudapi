@@ -228,14 +228,14 @@ app.post('/trackRating', function (req, res) {
     cert: fs.readFileSync('/etc/letsencrypt/live/audcloud.top/privkey.pem'),
     key: fs.readFileSync('/etc/letsencrypt/live/audcloud.top/fullchain.pem')
 };
-express.listen(80);
+
 https.createServer(options, app).listen(443);
 
 
 
-// app.listen(80, function() {
-//     console.log('ok');
-// })
+app.listen(80, function() {
+    console.log('ok');
+})
 
 
 const url = 'mongodb://localhost:27017';
