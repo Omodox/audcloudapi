@@ -225,8 +225,8 @@ app.post('/trackRating', function (req, res) {
 
   
   const options = {
-    cert: fs.readFileSync('/etc/letsencrypt/live/audcloud.top/privkey.pem'),
-    key: fs.readFileSync('/etc/letsencrypt/live/audcloud.top/fullchain.pem')
+    cert: fs.readFileSync('./etc/letsencrypt/live/audcloud.top/privkey.pem'),
+    key: fs.readFileSync('./etc/letsencrypt/live/audcloud.top/fullchain.pem')
 };
 
 https.createServer(options, app).listen(443);
