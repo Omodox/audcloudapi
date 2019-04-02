@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 
-require('routes')(app);
+require('./routes')(app);
 
 
 
