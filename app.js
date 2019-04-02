@@ -125,11 +125,11 @@ app.post('/registration', function (req, res) {
 
  
     var passwordHash = secretKey.update(element.password, 'utf8', 'hex');
-    passwordHash += passwordHash.update.final('hex');
+    passwordHash += passwordHash.final('hex');
 
     var token = passwordHash + Math.floor(new Date() / 1000);
     var session = secretKey.update(token, 'utf8', 'hex')
-        session += session.update.final('hex'); 
+        session += session.final('hex'); 
     
     var user = {
         userEmail: element.userEmail,
