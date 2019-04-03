@@ -47,11 +47,24 @@ function encrypt(text){
 
     if (element.userEmail && element.userEmail && element.userPassword) {
         db.collection('users').find({userEmail:element.userEmail}).toArray(function (err,docs) {
-            console.log(docs);
+            if (docs.length == 0) {
+                db.collection('users').insert(user);
+                res.status(200).json({
+                    message: 'Done'
+                })
+            } else {
+                res.status(500).json({
+                    message: 'alredy in database'
+                })
+            }
+        });
+    } else {
+        res.status(500).json({
+            message: 'Error with filds'
         });
     }
 
-    res.send(user);
+   
 });
 
 module.exports = router;
