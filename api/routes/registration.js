@@ -51,3 +51,5 @@ function encrypt(text){
 
     res.send(user);
 });
+
+module.exports = router;
