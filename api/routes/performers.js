@@ -12,6 +12,7 @@ const dbName = 'audcloud';
 
       function getUser(req){
         db.collection('users').find({sessions: req.token }).toArray(function (err,docs) {
+            console.log(docs);
             return docs[0];
         });
       }
