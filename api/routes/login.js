@@ -41,7 +41,7 @@ function encrypt(text){
     if (element.userEmail && element.userPassword) {
         db.collection('users').find(user).toArray(function (err,docs) {
             if (docs.length > 0) {
-                db.collection('users').update(user,{sessions: session});
+                db.collection('users').update(user,{$set: {sessions: session} });
                 res.status(200).json({
                     token: session,
                     role: docs[0].role
