@@ -4,7 +4,7 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 const bearerToken = require('express-bearer-token');
 
-var activeUser;
+
 
 const url = 'mongodb://localhost:27017';
 const dbName = 'audcloud';
@@ -12,11 +12,7 @@ const dbName = 'audcloud';
          db = client.db(dbName);
       }); 
 
-      function getUser(req){
-        db.collection('users').find({sessions: req.token }).toArray(function (err,docs) {
-            activeUser = docs[0];
-        });
-      }
+  
 
 router.get('/', function (req, res) {
 
@@ -29,9 +25,20 @@ router.get('/', function (req, res) {
 
   router.delete('/', function (req, res) {
 
-      getUser(req);
-      console.log(activeUser);
-      res.send(activeUser);
+    db.collection('users').find({sessions: req.token }).toArray(function (err,docs) {
+        activeUser = docs[0];
+        if (activeUser) {
+            res.status(200).json({
+                role: activeUser.role
+            });
+        } else {
+            res.status(500).json({
+                message: 'token is bad'
+            })
+        }
+       
+    });
+      
 
     // db.collection('performers').find().toArray(function (err,docs) {
     //   res.send(docs);
