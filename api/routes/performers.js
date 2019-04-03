@@ -10,7 +10,7 @@ const dbName = 'audcloud';
       }); 
 
 
-router.get('/performers', function (req, res) {
+router.get('/', function (req, res) {
 
 
     db.collection('performers').find().toArray(function (err,docs) {
