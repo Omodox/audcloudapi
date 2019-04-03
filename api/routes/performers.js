@@ -26,6 +26,8 @@ router.get('/', function (req, res) {
   router.delete('/:id', function (req, res) {
 
     db.collection('users').find({sessions: req.token }).toArray(function (err,docs) {
+        console.log(docs);
+        console.log(req.token);
         activeUser = docs[0];
         console.log(activeUser);
         if (activeUser) {
