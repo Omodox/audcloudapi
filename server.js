@@ -1,13 +1,12 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
-var MongoClient = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectID;
+
 var cors = require('cors');
 const bearerToken = require('express-bearer-token');
 const fs = require('fs')
 const https = require('https');
-var crypto = require('crypto');
+
 
 // 
 const request = require('request');
@@ -15,15 +14,6 @@ const telegramUrl = 'https://api.telegram.org/bot693449666:AAH83H6PYwp8wwxH1-Gbg
 var answer = '';
 // 
 
-var db;
-
-// 
-const url = 'mongodb://localhost:27017';
-const dbName = 'audcloud';
-    MongoClient.connect(url, function(err, client) {
-         db = client.db(dbName);
-      }); 
-// 
 
 var app = express();
 
@@ -43,6 +33,17 @@ app.use('/tracks', tracksRouter);
 
 const performersRouter = require('./api/routes/performers.js');
 app.use('/performers', performersRouter);
+
+const trackDurationRouter = require('./api/routes/track-durations.js');
+app.use('/trackDuration', trackDurationRouter);
+
+const trackRatingRouter = require('./api/routes/track-rating.js');
+app.use('/trackRating', trackRatingRouter);
+
+const registrationRouter = require('./api/routes/registration.js');
+app.use('/registration', registrationRouter);
+
+
 
 app.use((req,res,next) => {
     const error = new Error('Not found');
