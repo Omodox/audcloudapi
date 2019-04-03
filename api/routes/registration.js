@@ -46,7 +46,9 @@ function encrypt(text){
     };
 
     if (element.userEmail && element.userEmail && element.userPassword) {
-
+        db.collection('users').find({userEmail:element.userEmail}).toArray(function (err,docs) {
+            console.log(docs);
+        });
     }
 
     res.send(user);
