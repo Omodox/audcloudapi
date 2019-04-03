@@ -1,5 +1,13 @@
 const express = require('express');
 const router = express.Router();
+var MongoClient = require('mongodb').MongoClient;
+
+const url = 'mongodb://localhost:27017';
+const dbName = 'audcloud';
+    MongoClient.connect(url, function(err, client) {
+         db = client.db(dbName);
+      }); 
+
 
 router.get('/', (req, res, next) => {
  res.status(200).json({
