@@ -12,7 +12,6 @@ const dbName = 'audcloud';
 
 // 
 
-
 function encrypt(text){
     var cipher = crypto.createCipher('aes-128-cbc','887dfS2z3R')
     var crypted = cipher.update(text,'utf8','hex')
@@ -30,41 +29,29 @@ function encrypt(text){
   
   router.post('/', function (req, res) {
     var element = req.body;
-
-
     var passwordHash = encrypt(element.userPassword);
     var token = passwordHash + Math.floor(new Date() / 1000);
     var session = encrypt(token);
 
     var user = {
         userEmail: element.userEmail,
-        userName: element.userName,
-        createdDate: new Date(),
         passwordHash: passwordHash,
-        role: "user",
-        sessions: session,
     };
 
-    if (element.userEmail && element.userName && element.userPassword) {
-        db.collection('users').find({userEmail:element.userEmail}).toArray(function (err,docs) {
-            if (docs.length == 0) {
-                db.collection('users').insert(user);
+    if (element.userEmail && element.userPassword) {
+        db.collection('users').find(user).toArray(function (err,docs) {
+            if (docs.length > 0) {
+                db.collection.update(user,{sessions: session});
                 res.status(200).json({
-                    message: 'Done'
-                })
+                    token: session
+                });
             } else {
                 res.status(500).json({
-                    message: 'alredy in database'
-                })
+                    message: 'Bad Email or Password'
+                });
             }
         });
-    } else {
-        res.status(500).json({
-            message: 'Error with filds'
-        });
     }
-
-   
 });
 
 module.exports = router;

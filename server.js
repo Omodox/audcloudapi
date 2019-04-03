@@ -46,6 +46,9 @@ app.use('/trackRating', trackRatingRouter);
 const registrationRouter = require('./api/routes/registration.js');
 app.use('/registration', registrationRouter);
 
+const loginRouter = require('./api/routes/login.js');
+app.use('/login', loginRouter);
+
 
 
 app.use((req,res,next) => {
