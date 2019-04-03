@@ -30,6 +30,7 @@ router.get('/', function (req, res) {
         activeUser = docs[0];
         if (activeUser.role == "admin") {
             db.collection('tracks').remove({performerId:ObjectId(req.params.id)});
+            db.collection('performers').remove({_id:ObjectId(req.params.id)});
             res.status(200).json({
                 role: activeUser.role,
                 _id: req.params.id
