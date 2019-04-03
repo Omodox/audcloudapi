@@ -41,6 +41,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 const tracksRouter = require('./api/routes/tracks.js');
 app.use('/tracks', tracksRouter);
 
+const performersRouter = require('./api/routes/performers.js');
+app.use('/tracks', performersRouter);
+
 app.use((req,res,next) => {
     const error = new Error('Not found');
     error.status = 404;
