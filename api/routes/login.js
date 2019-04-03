@@ -43,7 +43,8 @@ function encrypt(text){
             if (docs.length > 0) {
                 db.collection('users').update(user,{sessions: session});
                 res.status(200).json({
-                    token: session
+                    token: session,
+                    role: docs[0].role
                 });
             } else {
                 res.status(500).json({
