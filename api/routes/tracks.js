@@ -7,7 +7,7 @@ router.get('/', (req, res, next) => {
  });
 });
 
-app.post('/', function (req, res) {
+router.post('/', function (req, res) {
 
     console.log(req.body);
     var element = req.body;
