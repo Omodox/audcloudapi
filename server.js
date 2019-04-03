@@ -34,6 +34,9 @@ app.use('/tracks', tracksRouter);
 const performersRouter = require('./api/routes/performers.js');
 app.use('/performers', performersRouter);
 
+const searchRouter = require('./api/routes/search.js');
+app.use('/search', searchRouter);
+
 const trackDurationRouter = require('./api/routes/track-durations.js');
 app.use('/trackDuration', trackDurationRouter);
 
