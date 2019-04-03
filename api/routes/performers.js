@@ -12,7 +12,7 @@ const dbName = 'audcloud';
 
       function getUser(){
         db.collection('users').find({token: req.token }).toArray(function (err,docs) {
-            console.log(docs);
+            return docs[0];
         });
       }
 
@@ -27,9 +27,12 @@ router.get('/', function (req, res) {
 
   router.delete('/', function (req, res) {
 
-    db.collection('performers').find().toArray(function (err,docs) {
-      res.send(docs);
-      });
+      var user =  getUser();
+      console.log(user);
+
+    // db.collection('performers').find().toArray(function (err,docs) {
+    //   res.send(docs);
+    //   });
 
   }); 
 
