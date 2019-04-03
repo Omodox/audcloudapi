@@ -29,6 +29,7 @@ router.get('/', function (req, res) {
 
       var user =  getUser();
       console.log(user);
+      res.send(user);
 
     // db.collection('performers').find().toArray(function (err,docs) {
     //   res.send(docs);
