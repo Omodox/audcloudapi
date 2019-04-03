@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 
 const url = 'mongodb://localhost:27017';
 const dbName = 'audcloud';
@@ -10,10 +11,16 @@ const dbName = 'audcloud';
 
 
 router.get('/', (req, res, next) => {
- res.status(200).json({
-    message: 'ok'
- });
+
+    var perfid = req.query.performerid; 
+    db.collection('tracks').find({performerId:ObjectId(perfid)}).sort({"rating" : -1}).toArray(function (err,docs) {
+        res.status(200).json(docs);
+      });
+
+
 });
+
+
 
 router.post('/', function (req, res) {
 
