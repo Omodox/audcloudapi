@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
+const bearerToken = require('express-bearer-token');
 
 const url = 'mongodb://localhost:27017';
 const dbName = 'audcloud';
@@ -9,9 +10,22 @@ const dbName = 'audcloud';
          db = client.db(dbName);
       }); 
 
+      function getUser(){
+        db.collection('users').find({token: req.token }).toArray(function (err,docs) {
+            console.log(docs);
+        });
+      }
 
 router.get('/', function (req, res) {
 
+
+    db.collection('performers').find().toArray(function (err,docs) {
+      res.send(docs);
+      });
+
+  }); 
+
+  router.delete('/', function (req, res) {
 
     db.collection('performers').find().toArray(function (err,docs) {
       res.send(docs);
