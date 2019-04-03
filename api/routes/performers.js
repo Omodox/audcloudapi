@@ -4,6 +4,8 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 const bearerToken = require('express-bearer-token');
 
+var activeUser;
+
 const url = 'mongodb://localhost:27017';
 const dbName = 'audcloud';
     MongoClient.connect(url, function(err, client) {
@@ -12,8 +14,7 @@ const dbName = 'audcloud';
 
       function getUser(req){
         db.collection('users').find({sessions: req.token }).toArray(function (err,docs) {
-            console.log(docs);
-            return docs[0];
+            activeUser = docs[0];
         });
       }
 
@@ -28,9 +29,9 @@ router.get('/', function (req, res) {
 
   router.delete('/', function (req, res) {
 
-      var user =  getUser(req);
-      console.log(user);
-      res.send(user);
+      getUser(req);
+      console.log(activeUser);
+      res.send(activeUser);
 
     // db.collection('performers').find().toArray(function (err,docs) {
     //   res.send(docs);
