@@ -65,6 +65,7 @@ router.patch('/', function (req, res) {
             db.collection('performers').update({ _id: ObjectId(performer_Id) }, { $set: newPatchPerformer });
             // 
             db.collection('tracks').update({performerId : ObjectId(performer_Id)}, {$addToSet : {keys : { $each : newPatchPerformer.keys} }}, {multi:true})
+            db.collection('tracks').update({performerId : ObjectId(performer_Id)}, {$addToSet : {genres : { $each : newPatchPerformer.genres} }}, {multi:true})
             // 
             res.status(200).json(
                 newPatchPerformer
