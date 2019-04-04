@@ -3,6 +3,7 @@ const router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var crypto = require('crypto');
+const bearerToken = require('express-bearer-token');
 
 const url = 'mongodb://localhost:27017';
 const dbName = 'audcloud';
@@ -25,6 +26,22 @@ function encrypt(text){
     dec += decipher.final('utf8');
     return dec;
   }
+
+  router.get('/', (req, res, next) => {
+
+    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+        if (docs.length > 0) {
+            res.status(200).json(docs[0].role);
+        } else {
+            res.status(500).json({
+                message: 'Bad token'
+            });
+        }
+     
+    });
+
+
+});
 
   
   router.post('/', function (req, res) {
