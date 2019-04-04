@@ -17,13 +17,12 @@ const dbName = 'audcloud';
 router.post('/', function (req, res) {
 
     var like = req.body;
-    var user_id = like._id;
 
     db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
 
         if (docs.length > 0) {
             activeUser = docs[0];
-            db.collection("users").update({ _id: ObjectId(user_id)},{$addToSet : {likes : {_id: like.track_id} }}, {multi:false});
+            db.collection("users").update({ _id: ObjectId(activeUser._id)},{$addToSet : {likes : {_id: like.track_id} }}, {multi:false});
             res.status(200).json(
                 like
             );
