@@ -136,4 +136,31 @@ router.delete('/:id', function (req, res) {
 
 });
 
+
+router.patch('/', function (req, res) {
+
+    var newTrackPatch = req.body;
+    var trackId = newTrackPatch._id;
+    delete newTrackPatch._id;
+
+    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+
+        activeUser = docs[0];
+
+        if (activeUser.role == "admin" || activeUser.role == "manager") {
+            db.collection('tracks').update({ _id: ObjectId(trackId) }, { $set: newTrackPatch });
+
+            res.status(200).json(
+                newTrackPatch
+            );
+        } else {
+            res.status(500).json({
+                message: 'token is bad'
+            })
+        }
+
+    });
+
+});
+
 module.exports = router;
