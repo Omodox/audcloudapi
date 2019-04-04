@@ -34,7 +34,7 @@ function encrypt(text){
 
     var passwordHash = encrypt(element.userPassword);
     var token = passwordHash + Math.floor(new Date() / 1000);
-    var userTrack = encrypt(token);
+    var userToken = encrypt(token);
 
     var user = {
         userEmail: element.userEmail,
@@ -42,7 +42,7 @@ function encrypt(text){
         createdDate: new Date(),
         passwordHash: passwordHash,
         role: "user",
-        sessions: userTrack,
+        sessions: userToken,
     };
 
     if (element.userEmail && element.userName && element.userPassword) {
@@ -51,7 +51,8 @@ function encrypt(text){
                 db.collection('users').insert(user);
                 res.status(200).json({
                     message: 'Done',
-                    
+                    token: userToken
+
                 })
             } else {
                 res.status(500).json({
