@@ -59,7 +59,7 @@ router.get('/', function (req, res) {
 
         activeUser = docs[0];
         if (activeUser.role == "admin" ||  activeUser.role == "manager" ) {
-            db.collection('users').update( {_id : ObjectId(newPatchPerformer._id)} ,{$set: newPatchPerformer });
+            db.collection('performers').update( {_id : ObjectId(newPatchPerformer._id)} ,{$set: newPatchPerformer });
             res.status(200).json(
                 newPatchPerformer
             );
