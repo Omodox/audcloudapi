@@ -29,24 +29,26 @@ router.get('/', function (req, res) {
      });
     db.collection('tracks').find({ keys: { $all: searchArray } }).sort({"rating" : -1}).toArray(function (err,docs) {
 
-         
-        request({
-            method: 'GET',
-            url: telegramUrl,
-            // параметры GET-запроса
-            // index.php?param=edit&value=10
-            qs: {
-             chat_id: '-266590437',
-             text: req.query.search
-            }
-           }, function (error, response, body) {
-           if (!error && response.statusCode == 200) {
-             // console.log(body);
-             // валидация и 
-             // обработка полученного ответа, заголовков
-             answer = body;
-           }
-         })
+         if (docs.length < 4) {
+            request({
+                method: 'GET',
+                url: telegramUrl,
+                // параметры GET-запроса
+                // index.php?param=edit&value=10
+                qs: {
+                 chat_id: '-266590437',
+                 text: req.query.search
+                }
+               }, function (error, response, body) {
+               if (!error && response.statusCode == 200) {
+                 // console.log(body);
+                 // валидация и 
+                 // обработка полученного ответа, заголовков
+                 answer = body;
+               }
+             })
+         }
+
 
 
       res.send(docs);
