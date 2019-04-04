@@ -50,4 +50,28 @@ router.get('/', function (req, res) {
 
   }); 
 
+
+  router.patch('/', function (req, res) {
+
+    var element = req.body;
+
+    db.collection('users').find({sessions: req.token }).toArray(function (err,docs) {
+
+        activeUser = docs[0];
+        if (activeUser.role == "admin" ||  activeUser.role == "manager" ) {
+            // db.collection('tracks').remove({performerId:ObjectId(req.params.id)});
+            // db.collection('performers').remove({_id:ObjectId(req.params.id)});
+            res.status(200).json(
+                element
+            );
+        } else {
+            res.status(500).json({
+                message: 'token is bad'
+            })
+        }
+       
+    });
+
+  }); 
+
 module.exports = router;
