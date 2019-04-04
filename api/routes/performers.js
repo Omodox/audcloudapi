@@ -54,12 +54,15 @@ router.get('/', function (req, res) {
   router.patch('/', function (req, res) {
 
     var newPatchPerformer = req.body;
+    var performer_Id = newPatchPerformer._id;
+    delete newPatchPerformer._id;
 
     db.collection('users').find({sessions: req.token }).toArray(function (err,docs) {
 
         activeUser = docs[0];
+
         if (activeUser.role == "admin" ||  activeUser.role == "manager" ) {
-            db.collection('performers').update( {_id : ObjectId(newPatchPerformer._id)} ,{$set: newPatchPerformer });
+            db.collection('performers').update( {_id : ObjectId(performer_Id)} ,{$set: newPatchPerformer });
             res.status(200).json(
                 newPatchPerformer
             );
