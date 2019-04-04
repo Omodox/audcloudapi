@@ -64,7 +64,7 @@ router.patch('/', function (req, res) {
         if (activeUser.role == "admin" || activeUser.role == "manager") {
             db.collection('performers').update({ _id: ObjectId(performer_Id) }, { $set: newPatchPerformer });
             // 
-            db.collection('tracks').update({performerId : ObjectId(performer_Id)}, {$addToSet : {keys : { $each : newPatchPerformer.keys} }})
+            db.collection('tracks').update({performerId : ObjectId(performer_Id)}, {$addToSet : {keys : { $each : newPatchPerformer.keys} }}, {multi:true})
             // 
             res.status(200).json(
                 newPatchPerformer
