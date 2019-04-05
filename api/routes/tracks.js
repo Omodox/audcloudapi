@@ -88,7 +88,7 @@ router.post('/', function (req, res) {
     });
 
     function newArray(x,y) {
-        var d;
+        var d = [];
         x.concat(y).forEach(item =>{
            if (d.findIndex(x => x == item) == -1) 
              d.push(item); 
