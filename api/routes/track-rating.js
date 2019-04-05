@@ -25,22 +25,17 @@ router.post('/', function (req, res) {
         };
 
         db.collection('tracks').update({_id:ObjectId(element._id)}, {$set: updateTrack});
-        res.send(updateTrack);
+        // res.send(updateTrack);
 
     });
 
-
-   
-
-       
-    
         db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
     
             if (docs.length > 0) {
                 activeUser = docs[0];
                 db.collection("users").update({ _id: ObjectId(activeUser._id)},{$addToSet : {history : {_id: element._id},  $slice: -5 }});
                 res.status(200).json(
-                    like
+                     {message : 'History seted'}
                 );
         
             }  else {
