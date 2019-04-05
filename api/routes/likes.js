@@ -30,8 +30,12 @@ router.get('/', (req, res, next) => {
            .toArray(function (arr,tracks){
                 var NewTracks = [];
                 objLikesId.forEach(element => {
+            
               var copy =   tracks.find( x => { x._id == element._id });
-              NewTracks.push(Object.assign(copy, element )); 
+              if (copy) {
+                NewTracks.push(Object.assign(copy, element )); 
+              }
+            
             });
             console.log(NewTracks);
             NewTracks.sort(function(a,b){
