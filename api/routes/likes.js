@@ -19,7 +19,11 @@ router.get('/', (req, res, next) => {
     db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
         if (docs.length > 0) {
             var activeUser = docs[0];
-           db.collection('tracks').find({$elemMatch : {_id:  docs[0].likes  }}).toArray(function (arr,tracks){
+            var likes = docsp[0].likes;
+             likes.forEach(element => {
+                element._id = ObjectId(element._id);
+            });
+           db.collection('tracks').find({$elemMatch : {_id:  likes  }}).toArray(function (arr,tracks){
                 res.status(200).json(
                     tracks
                 );
