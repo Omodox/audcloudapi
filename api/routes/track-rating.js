@@ -33,7 +33,7 @@ router.post('/', function (req, res) {
     
             if (docs.length > 0) {
                 activeUser = docs[0];
-                db.collection("users").update({ _id: ObjectId(activeUser._id)},{$addToSet : {history : {_id: element._id},  $slice: -5 }});
+                db.collection("users").update({ _id: ObjectId(activeUser._id)},{$addToSet : {history : {_id: element._id} }});
                 res.status(200).json(
                      {message : 'History seted'}
                 );
