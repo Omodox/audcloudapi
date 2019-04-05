@@ -25,8 +25,8 @@ router.get('/', (req, res, next) => {
                 objLikesId.push(ObjectId(element._id));
             });
             console.log(objLikesId);
-           db.collection('tracks')
-           .find({ _id: { $elemMatch: objLikesId } })
+
+           db.collection('tracks').find({_id: { $in: objLikesId } })
            .toArray(function (arr,tracks){
                 res.status(200).json(
                     tracks
