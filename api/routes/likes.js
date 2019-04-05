@@ -29,6 +29,9 @@ router.get('/', (req, res, next) => {
            db.collection('tracks').find({_id: { $in: objLikesId } })
            .toArray(function (arr,tracks){
                 var NewTracks = [];
+                console.log(objLikesId);
+                console.log('---');
+                console.log(tracks);
                 objLikesId.forEach(element => {
             
               var copy =   tracks.find( x => { x._id == element._id });
