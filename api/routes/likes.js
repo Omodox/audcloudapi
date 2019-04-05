@@ -14,6 +14,39 @@ const dbName = 'audcloud';
 // 
 
 
+router.get('/', (req, res, next) => {
+
+    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+        if (docs.length > 0) {
+            var activeUser = docs[0];
+           db.collection('tracks').find(
+            {$and : 
+                [
+                  {likes: 
+                    {$elemMatch: 
+                      { _id : docs[0].likes }
+                    }
+                  },
+                      {  _id: ObjectId(activeUser._id) }
+                    ]
+                  }
+               ).toArray(function (arr,tracks){
+                res.status(200).json(
+                    tracks
+                );
+               });
+        } else {
+            res.status(500).json({
+                message: 'Bad token'
+            });
+        }
+     
+    });
+
+
+});
+
+
 router.post('/', function (req, res) {
 
     var like = req.body;
