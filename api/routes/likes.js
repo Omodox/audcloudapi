@@ -29,12 +29,12 @@ router.get('/', (req, res, next) => {
            db.collection('tracks').find({_id: { $in: objLikesId } })
            .toArray(function (arr,tracks){
                 var NewTracks = [];
-                console.log(objLikesId);
+                console.log(likes);
                 console.log('---');
                 console.log(tracks);
-                objLikesId.forEach(element => {
+                likes.forEach(element => {
             
-              var copy =   tracks.find( x => { x._id == element });
+              var copy =   tracks.find( x => { x._id == element._id });
               if (copy) {
                 NewTracks.push(Object.assign(copy, element )); 
               }
