@@ -25,7 +25,7 @@ router.get('/', (req, res, next) => {
             });
             console.log(likes);
            db.collection('tracks')
-           .find({},{"_id":1,list:{$elemMatch:{$in:likes}}})
+           .find({"_id":{$elemMatch:{$in:likes}}})
            .toArray(function (arr,tracks){
                 res.status(200).json(
                     tracks
