@@ -24,7 +24,7 @@ router.get('/', (req, res, next) => {
              likes.forEach(element => {
                 objLikesId.push(ObjectId(element._id));
             });
-            console.log(objLikesId);
+            // console.log(objLikesId);
 
            db.collection('tracks').find({_id: { $in: objLikesId } })
            .toArray(function (arr,tracks){

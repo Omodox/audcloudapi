@@ -52,6 +52,9 @@ app.use('/login', loginRouter);
 const likesRouter = require('./api/routes/likes.js');
 app.use('/likes', likesRouter);
 
+const historyRouter = require('./api/routes/history.js');
+app.use('/history', historyRouter);
+
 
 
 app.use((req,res,next) => {
