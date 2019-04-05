@@ -47,7 +47,7 @@ function encrypt(text){
   router.post('/', function (req, res) {
     var element = req.body;
     var passwordHash = encrypt(element.userPassword);
-    var token = passwordHash + Math.floor(new Date() / 1000);
+    var token = element.userEmail + passwordHash + Math.floor(new Date() / 1000);
     var session = encrypt(token);
 
     var user = {
