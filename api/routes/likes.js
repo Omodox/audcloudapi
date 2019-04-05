@@ -20,6 +20,9 @@ router.get('/', (req, res, next) => {
         if (docs.length > 0) {
             var activeUser = docs[0];
             var likes = activeUser.likes;
+            likes.sort(function(a,b){
+                return new Date(b.createdDate) - new Date(a.createdDate);
+              });
             var objLikesId = [];
              likes.forEach(element => {
                 objLikesId.push(ObjectId(element._id));
@@ -83,7 +86,8 @@ router.post('/', function (req, res) {
 
         if (docs.length > 0) {
             activeUser = docs[0];
-            db.collection("users").update({ _id: ObjectId(activeUser._id)},{$addToSet : {likes : {_id: like.track_id} }}, {multi:false});
+            var createdDate =  new Date();
+            db.collection("users").update({ _id: ObjectId(activeUser._id)},{$addToSet : {likes : {_id: like.track_id, createdDate : createdDate} }}, {multi:false});
             db.collection("tracks").update({_id: ObjectId(like.track_id)}, {$inc: {likes: 1}});
             res.status(200).json(
                 like
