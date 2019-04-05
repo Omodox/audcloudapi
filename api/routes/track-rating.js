@@ -16,7 +16,7 @@ router.post('/', function (req, res) {
     db.collection('tracks').find({_id:ObjectId(element._id)}).toArray(function (err,tracks) {
         var track = tracks[0];
             var auditionsTime = element.auditionsTime +  track.auditionsTime; 
-            var rating = auditionsTime  / (TimeNow - track.createdTime);
+            var rating = auditionsTime  / ((TimeNow - track.createdTime) /  ((track.duration +1) * track.auditions) );
             
        var updateTrack = {
             auditions: track.auditions + 1,

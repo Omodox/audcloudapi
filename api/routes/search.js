@@ -21,6 +21,8 @@ router.get('/', function (req, res) {
 
     var search = req.query.search; 
     var searchArray = [];
+    search = search.replace('–', ' ');
+    search = search.replace('-', ' ');
      search =  search.split(' ');
     
       search.forEach(element => {
