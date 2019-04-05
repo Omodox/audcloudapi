@@ -20,9 +20,6 @@ router.get('/', (req, res, next) => {
         if (docs.length > 0) {
             var activeUser = docs[0];
             var likes = activeUser.likes;
-            likes.sort(function(a,b){
-                return new Date(b.createdDate) - new Date(a.createdDate);
-              });
             var objLikesId = [];
              likes.forEach(element => {
                 objLikesId.push(ObjectId(element._id));
@@ -31,8 +28,18 @@ router.get('/', (req, res, next) => {
 
            db.collection('tracks').find({_id: { $in: objLikesId } })
            .toArray(function (arr,tracks){
+                var NewTracks = [];
+            likes.forEach(element => {
+              var copy =   tracks.find( x => { x._id == element._id });
+              NewTracks.push(Object.assign(copy, element )); 
+            });
+            console.log(NewTracks);
+            NewTracks.sort(function(a,b){
+                return new Date(b.createdDate) - new Date(a.createdDate);
+              });
+
                 res.status(200).json(
-                    tracks
+                    NewTracks
                 );
                });
         } else {
