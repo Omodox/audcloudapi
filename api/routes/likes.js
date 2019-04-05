@@ -53,7 +53,8 @@ router.delete('/:id', function (req, res) {
             activeUser = docs[0];
             db.collection("users").update(
                  { _id: ObjectId(activeUser._id) },
-              { $pull: { likes: { _id : req.params.id } } } )
+              { $pull: { likes: { _id : req.params.id } } } );
+              db.collection("tracks").update({_id: ObjectId(req.params.id)}, {$inc: {likes: -1}});
                 res.status(200).json(
                     { message : 'Done'}
             );
@@ -83,6 +84,7 @@ router.post('/', function (req, res) {
         if (docs.length > 0) {
             activeUser = docs[0];
             db.collection("users").update({ _id: ObjectId(activeUser._id)},{$addToSet : {likes : {_id: like.track_id} }}, {multi:false});
+            db.collection("tracks").update({_id: ObjectId(like.track_id)}, {$inc: {likes: 1}});
             res.status(200).json(
                 like
             );
