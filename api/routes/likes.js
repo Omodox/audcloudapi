@@ -20,12 +20,13 @@ router.get('/', (req, res, next) => {
         if (docs.length > 0) {
             var activeUser = docs[0];
             var likes = activeUser.likes;
+            var objLikesId = [];
              likes.forEach(element => {
-                element._id = ObjectId(element._id);
+                objLikesId.push(ObjectId(element._id));
             });
-            console.log(likes);
+            console.log(objLikesId);
            db.collection('tracks')
-           .find({$elemMatch:      { _id : likes }        })
+           .find({$elemMatch:      { _id : objLikesId }        })
            .toArray(function (arr,tracks){
                 res.status(200).json(
                     tracks
