@@ -35,7 +35,9 @@ router.get('/', (req, res, next) => {
                 likes.forEach(element => {
             
               var copy =   tracks.find( x => { x._id == ObjectId(element._id) });
+              console.log(copy);
               if (copy) {
+                  console.log(copy);
                 NewTracks.push(Object.assign(copy, element )); 
               }
             
