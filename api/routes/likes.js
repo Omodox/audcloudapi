@@ -24,7 +24,7 @@ router.get('/', (req, res, next) => {
                 [
                   {likes: 
                     {$elemMatch: 
-                      { _id : docs[0].likes }
+                      { _id : {$in : docs[0].likes}  }
                     }
                   },
                       {  _id: ObjectId(activeUser._id) }
