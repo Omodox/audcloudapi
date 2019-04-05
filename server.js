@@ -19,7 +19,7 @@ var app = express();
 
 
 
-// app.use(express.static(__dirname, { dotfiles: 'allow' } ));
+app.use(express.static(__dirname + '/omodoxdb', { dotfiles: 'allow' } ));
 
 app.use(cors());
 app.use(bearerToken());
