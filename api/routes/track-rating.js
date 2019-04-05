@@ -33,8 +33,9 @@ router.post('/', function (req, res) {
     
             if (docs.length > 0) {
                 activeUser = docs[0];
+                var addedDate = new Date();
                 db.collection("users").update({ _id: ObjectId(activeUser._id)},{ $pull: { history: { _id : element._id } } } ); // remove from User list
-                db.collection("users").update({ _id: ObjectId(activeUser._id)},{$addToSet : {history : {_id: element._id} }}); // add from User list
+                db.collection("users").update({ _id: ObjectId(activeUser._id)},{$addToSet : {history : {_id: element._id, addedDate : addedDate } }}); // add from User list
                 var historyLength = activeUser.history.length;
                 if (historyLength > 10) {
                     db.collection("users").update( { _id: ObjectId(activeUser._id)}, { $pop: { history: 1 } } ); //Remove last of history user list

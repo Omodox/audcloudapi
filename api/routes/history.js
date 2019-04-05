@@ -26,8 +26,21 @@ router.get('/', (req, res, next) => {
 
            db.collection('tracks').find({_id: { $in: objHistoryId } })
            .toArray(function (arr,tracks){
+            // 
+            var NewTracks = [];
+            history.forEach(element => {
+                var copy = tracks.find(x => x._id == element._id);
+                if (copy) {
+                    NewTracks.push(Object.assign(copy, element));
+                }
+            });
+            NewTracks.sort(function (a, b) {
+                return new Date(b.addedDate) - new Date(a.addedDate);
+            });
+            //    
+
                 res.status(200).json(
-                    tracks
+                    NewTracks
                 );
                });
         } else {

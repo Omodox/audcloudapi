@@ -7,9 +7,9 @@ const bearerToken = require('express-bearer-token');
 
 const url = 'mongodb://localhost:27017';
 const dbName = 'audcloud';
-    MongoClient.connect(url, function(err, client) {
-         db = client.db(dbName);
-      }); 
+MongoClient.connect(url, function (err, client) {
+    db = client.db(dbName);
+});
 
 // 
 
@@ -21,41 +21,36 @@ router.get('/', (req, res, next) => {
             var activeUser = docs[0];
             var likes = activeUser.likes;
             var objLikesId = [];
-             likes.forEach(element => {
+            likes.forEach(element => {
                 objLikesId.push(ObjectId(element._id));
             });
             // console.log(objLikesId);
 
-           db.collection('tracks').find({_id: { $in: objLikesId } })
-           .toArray(function (arr,tracks){
-                var NewTracks = [];
+            db.collection('tracks').find({ _id: { $in: objLikesId } })
+                .toArray(function (arr, tracks) {
 
-                likes.forEach(element => {
-            
-              var copy =  tracks.find( x =>  x._id == element._id);
+                    var NewTracks = [];
+                    likes.forEach(element => {
+                        var copy = tracks.find(x => x._id == element._id);
+                        if (copy) {
+                            NewTracks.push(Object.assign(copy, element));
+                        }
+                    });
+                    NewTracks.sort(function (a, b) {
+                        return new Date(b.addedDate) - new Date(a.addedDate);
+                    });
 
-              console.log(copy);
-              if (copy) {
-                  console.log(copy);
-                NewTracks.push(Object.assign(copy, element )); 
-              }
-            
-            });
-            console.log(NewTracks);
-            NewTracks.sort(function(a,b){
-                return new Date(b.createdDate) - new Date(a.createdDate);
-              });
 
-                res.status(200).json(
-                    NewTracks
-                );
-               });
+                    res.status(200).json(
+                        NewTracks
+                    );
+                });
         } else {
             res.status(500).json({
                 message: 'Bad token'
             });
         }
-     
+
     });
 
 
@@ -70,25 +65,25 @@ router.delete('/:id', function (req, res) {
         if (docs.length > 0) {
             activeUser = docs[0];
             db.collection("users").update(
-                 { _id: ObjectId(activeUser._id) },
-              { $pull: { likes: { _id : req.params.id } } } );
-              db.collection("tracks").update({_id: ObjectId(req.params.id)}, {$inc: {likes: -1}});
-                res.status(200).json(
-                    { message : 'Done'}
+                { _id: ObjectId(activeUser._id) },
+                { $pull: { likes: { _id: req.params.id } } });
+            db.collection("tracks").update({ _id: ObjectId(req.params.id) }, { $inc: { likes: -1 } });
+            res.status(200).json(
+                { message: 'Done' }
             );
-    
-        }  else {
+
+        } else {
             res.status(500).json({
                 message: 'token is bad'
             })
         }
-    
+
     });
 
-  
-            // db.collection('tracks').remove({ performerId: ObjectId(req.params.id) });
-            // db.collection('performers').remove({ _id: ObjectId(req.params.id) });
- 
+
+    // db.collection('tracks').remove({ performerId: ObjectId(req.params.id) });
+    // db.collection('performers').remove({ _id: ObjectId(req.params.id) });
+
 
 });
 
@@ -101,19 +96,19 @@ router.post('/', function (req, res) {
 
         if (docs.length > 0) {
             activeUser = docs[0];
-            var createdDate =  new Date();
-            db.collection("users").update({ _id: ObjectId(activeUser._id)},{$addToSet : {likes : {_id: like.track_id, createdDate : createdDate} }}, {multi:false});
-            db.collection("tracks").update({_id: ObjectId(like.track_id)}, {$inc: {likes: 1}});
+            var addedDate = new Date();
+            db.collection("users").update({ _id: ObjectId(activeUser._id) }, { $addToSet: { likes: { _id: like.track_id, addedDate: addedDate } } }, { multi: false });
+            db.collection("tracks").update({ _id: ObjectId(like.track_id) }, { $inc: { likes: 1 } });
             res.status(200).json(
                 like
             );
-    
-        }  else {
+
+        } else {
             res.status(500).json({
                 message: 'token is bad'
             })
         }
-    
+
     });
 
 
