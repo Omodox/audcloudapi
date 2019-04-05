@@ -20,16 +20,7 @@ router.get('/', (req, res, next) => {
         if (docs.length > 0) {
             var activeUser = docs[0];
            db.collection('tracks').find(
-            {$and : 
-                [
-                  {likes: 
-                    {$elemMatch: 
-                      { _id : {$in : docs[0].likes}  }
-                    }
-                  },
-                      {  _id: ObjectId(activeUser._id) }
-                    ]
-                  }
+               {$elemMatch : {_id: {$in : docs[0].likes } }}
                ).toArray(function (arr,tracks){
                 res.status(200).json(
                     tracks
