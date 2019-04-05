@@ -80,11 +80,23 @@ router.post('/', function (req, res) {
         else {
 
             track.performerId = docs[0]._id;
+            track.keys =  newArray(track.keys,docs[0].keys);
             createTrack();
         }
 
 
     });
+
+    function newArray(x,y) {
+        var d;
+        x.concat(y).forEach(item =>{
+           if (d.indexOf(item) == -1) 
+             d.push(item); 
+        });
+        return d;
+      }
+      
+     
 
     function createTrack() {
         var searchParameter = {
