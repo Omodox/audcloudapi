@@ -48,6 +48,16 @@ router.get('/:id', (req, res, next) => {
 
 });
 
+router.get('@:userName', (req, res, next) => {
+
+    var userName = req.params.userName;
+    db.collection('users').find({ userName: ObjectId(userName) }, { projection: { _id: 1, likes: 1, userName: 1 }} ).toArray(function (err, docs) {
+        res.status(200).json(docs);
+    });
+
+
+});
+
 
 
 
