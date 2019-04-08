@@ -81,10 +81,6 @@ router.delete('/:id', function (req, res) {
     });
 
 
-    // db.collection('tracks').remove({ performerId: ObjectId(req.params.id) });
-    // db.collection('performers').remove({ _id: ObjectId(req.params.id) });
-
-
 });
 
 
