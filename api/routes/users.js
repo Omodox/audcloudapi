@@ -38,6 +38,16 @@ router.get('/', (req, res, next) => {
 
 });
 
+router.get('/:id', (req, res, next) => {
+
+    var userId = req.params.id;
+    db.collection('users').find({ _id: ObjectId(userId) }, {likes: true}).toArray(function (err, docs) {
+        res.status(200).json(docs);
+    });
+
+
+});
+
 
 
 
