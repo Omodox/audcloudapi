@@ -62,7 +62,8 @@ router.get('/name/:name', (req, res, next) => {
         });
         // console.log(objLikesId);
 
-        db.collection('tracks').find({ _id: { $in: objLikesId } })
+        db.collection('tracks').find({ _id: { $in: objLikesId } },
+             { projection: { _id: 1, zId: 1, performerName: 1, trackName : 1, performerId: 1,rating : 1, duration: 1 }} )
             .toArray(function (arr, tracks) {
 
                 var NewTracks = [];
