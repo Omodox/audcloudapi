@@ -14,9 +14,20 @@ MongoClient.connect(url, function (err, client) {
 router.get('/', (req, res, next) => {
 
     var perfid = req.query.performerid;
-    db.collection('tracks').find({ performerId: ObjectId(perfid) }).sort({ "rating": -1 }).toArray(function (err, docs) {
-        res.status(200).json(docs);
-    });
+    if (perfid) {
+        db.collection('tracks').find({ performerId: ObjectId(perfid) }).sort({ "rating": -1 }).toArray(function (err, docs) {
+            res.status(200).json(docs);
+        });
+    }
+    var rating = req.query.rating;
+    if (rating == true) {
+        db.collection('tracks').find().sort({ "rating": -1 }).limit(100).toArray(function (err, docs) {
+            res.status(200).json(docs);
+        });
+    }
+
+
+ 
 
 
 });
