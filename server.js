@@ -57,6 +57,9 @@ app.use('/likes', likesRouter);
 const historyRouter = require('./api/routes/history.js');
 app.use('/history', historyRouter);
 
+const PlaylistsRouter = require('./api/routes/playlists.js');
+app.use('/playlists', PlaylistsRouter);
+
 
 
 app.use((req,res,next) => {
