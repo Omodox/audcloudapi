@@ -27,7 +27,7 @@ router.get('/', (req, res, next) => {
 
         db.collection('tracks').aggregate(
             [
-                { "$group": { "_id": "$performerName" } },
+                { "$group": "performerName" },
                 { "$sort": { "rating": -1 }},
                 { "$limit": 100 }
             ]).toArray(function (err, docs) {
