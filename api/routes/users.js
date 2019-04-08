@@ -75,7 +75,7 @@ router.get('/name/:name', (req, res, next) => {
                 NewTracks.sort(function (a, b) {
                     return new Date(b.addedDate) - new Date(a.addedDate);
                 });
-
+                delete  selectedUser.likes;
                 selectedUser.tracks = NewTracks
                 res.status(200).json(selectedUser);
             });
