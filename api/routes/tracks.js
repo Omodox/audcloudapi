@@ -21,9 +21,21 @@ router.get('/', (req, res, next) => {
     }
     var rating = req.query.rating;
     if (rating == "true") {
-        db.collection('tracks').find().sort({ "rating": -1 }).limit(100).toArray(function (err, docs) {
+        // db.collection('tracks').find().sort({ "rating": -1 }).limit(100).toArray(function (err, docs) {
+        //     res.status(200).json(docs);
+        // });
+
+        db.collection('tracks').aggregate(
+            [
+                { "$group": { "_id": "$performerName" } },
+                { "$sort": { "rating": -1 }},
+                { "$limit": 100 }
+            ]).toArray(function (err, docs) {
             res.status(200).json(docs);
         });
+
+
+        
 
         
     } 
