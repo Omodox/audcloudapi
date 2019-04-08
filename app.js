@@ -62,6 +62,9 @@ app.use('/playlists', PlaylistsRouter);
 const UsersRouter = require('./api/routes/users.js');
 app.use('/users', UsersRouter);
 
+const userProfileRouter = require('./api/routes/user-profile.js');
+app.use('/@', userProfileRouter);
+
 
 
 
