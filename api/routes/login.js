@@ -31,9 +31,11 @@ function encrypt(text){
 
     db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
         if (docs.length > 0) {
-            res.status(200).json(docs[0].role);
+            res.status(200).json( {
+                role : docs[0].role
+            } );
         } else {
-            res.status(500).json({
+            res.status(200).json({
                 message: 'Bad token'
             });
         }
