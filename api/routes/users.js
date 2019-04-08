@@ -53,7 +53,34 @@ router.get('/name/:name', (req, res, next) => {
     var userName = req.params.name;
     userName =  new RegExp(userName, 'i');
     db.collection('users').find({ userName: userName }, { projection: { _id: 1, likes: 1, userName: 1 }} ).toArray(function (err, docs) {
-        res.status(200).json(docs);
+      
+        var selectedUser = docs[0];
+        var likes = selectedUser.likes;
+        var objLikesId = [];
+        likes.forEach(element => {
+            objLikesId.push(ObjectId(element._id));
+        });
+        // console.log(objLikesId);
+
+        db.collection('tracks').find({ _id: { $in: objLikesId } })
+            .toArray(function (arr, tracks) {
+
+                var NewTracks = [];
+                likes.forEach(element => {
+                    var copy = tracks.find(x => x._id == element._id);
+                    if (copy) {
+                        NewTracks.push(Object.assign(copy, element));
+                    }
+                });
+                NewTracks.sort(function (a, b) {
+                    return new Date(b.addedDate) - new Date(a.addedDate);
+                });
+
+                selectedUser.tracks = NewTracks
+                res.status(200).json(selectedUser);
+            });
+      
+  
     });
 
 
