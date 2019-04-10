@@ -13,7 +13,7 @@ MongoClient.connect(url, function (err, client) {
 
 // 
 
-
+//  Get playlists
 router.get('/', (req, res, next) => {
 
     var playlistOwner = req.query.playlistowner;
@@ -33,10 +33,47 @@ router.get('/', (req, res, next) => {
         });
     }
     
+});
+// Get playlist
+router.get('/:id', (req, res, next) => {
+
+    var playlistId = req.params.id;
+
+    db.collection('playlists').find({ _id: ObjectId(req.params.id) })
+    .toArray(function (arr,playlist){
+        objPplaylistTracks = [];
+        var playlistTracks = playlistTracks;
+
+        playlistTracks.forEach(element => {
+            objPplaylistTracks.push(ObjectId(element._id));
+        });
+
+        db.collection('tracks').find({_id: { $in: objPplaylistTracks } })
+        .toArray(function (arr,tracks){
+         // 
+         var NewTracks = [];
+         playlistTracks.forEach(element => {
+             var copy = tracks.find(x => x._id == element._id);
+             if (copy) {
+                 NewTracks.push(Object.assign(copy, element));
+             }
+         });
+         NewTracks.sort(function (a, b) {
+             return new Date(b.addedDate) - new Date(a.addedDate);
+         });
+         //    
+         res.status(200).json(
+            NewTracks
+        );
+        });
+
+    });
+            
+
 
 });
 
-
+//  Bad 
 router.delete('/:id', function (req, res) {
 
 
@@ -63,7 +100,7 @@ router.delete('/:id', function (req, res) {
 
 });
 
-
+//  Create Playlist
 router.post('/', function (req, res) {
 
     var newPlaylist = req.body;
@@ -104,7 +141,7 @@ router.post('/', function (req, res) {
 
 });
 
-
+//  Add track to playlist
 router.patch('/', function (req, res) { 
 
     var setToPlaylist = req.body;
