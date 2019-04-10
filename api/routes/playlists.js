@@ -16,43 +16,12 @@ MongoClient.connect(url, function (err, client) {
 
 router.get('/', (req, res, next) => {
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
-        if (docs.length > 0) {
-            var activeUser = docs[0];
-            var likes = activeUser.likes;
-            var objLikesId = [];
-            likes.forEach(element => {
-                objLikesId.push(ObjectId(element._id));
-            });
-            // console.log(objLikesId);
-
-            db.collection('tracks').find({ _id: { $in: objLikesId } })
-                .toArray(function (arr, tracks) {
-
-                    var NewTracks = [];
-                    likes.forEach(element => {
-                        var copy = tracks.find(x => x._id == element._id);
-                        if (copy) {
-                            NewTracks.push(Object.assign(copy, element));
-                        }
-                    });
-                    NewTracks.sort(function (a, b) {
-                        return new Date(b.addedDate) - new Date(a.addedDate);
-                    });
-
-
-                    res.status(200).json(
-                        NewTracks
-                    );
-                });
-        } else {
-            res.status(500).json({
-                message: 'Bad token'
-            });
-        }
+    db.collection('playlists').find().toArray(function (err, docs) {
+        res.status(200).json({
+            docs
+        })
 
     });
-
 
 });
 
