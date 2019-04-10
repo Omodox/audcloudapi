@@ -17,9 +17,7 @@ MongoClient.connect(url, function (err, client) {
 router.get('/', (req, res, next) => {
 
     db.collection('playlists').find().toArray(function (err, docs) {
-        res.status(200).json({
-            docs
-        })
+        res.status(200).json(docs)
 
     });
 
