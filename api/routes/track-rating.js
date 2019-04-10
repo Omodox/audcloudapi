@@ -28,7 +28,7 @@ router.post('/', function (req, res) {
         // res.send(updateTrack);
 
     });
-
+            //update user history
         db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
     
             if (docs.length > 0) {

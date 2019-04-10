@@ -83,6 +83,7 @@ router.post('/', function (req, res) {
                 playlistAuditions: 0,
                 playlistAuditionsTime: 0,
                 playlistLikes: 0,
+                playlistAccess: true,
             }
 
             db.collection('playlists').insertOne(playlist, function (err, docsInserted) {
@@ -100,6 +101,38 @@ router.post('/', function (req, res) {
 
     });
 
+
+});
+
+
+router.patch('/', function (req, res) { 
+
+    var setToPlaylist = req.body;
+    // playlist_id: userPlaylist._id,
+    // track_id: this.trackToPlaylst._id,
+
+    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+    
+        if (docs.length > 0) {
+            activeUser = docs[0];
+            var addedDate = new Date();
+            // db.collection("playlists").update({ _id: ObjectId(setToPlaylist.playlist_id)},{ $pull: { playlistTracks: { _id : setToPlaylist.track_id } } } ); // remove from User list 
+            db.collection("playlists").update({ _id: ObjectId(setToPlaylist.playlist_id), playlistOwner: ObjectId(activeUser._id) },{$addToSet : {playlistTracks : {_id: setToPlaylist.track_id, addedDate : addedDate } }}); // add from User list
+            // var historyLength = activeUser.history.length;
+            // if (historyLength > 69) {
+            //     db.collection("users").update( { _id: ObjectId(activeUser._id)}, { $pop: { history: 1 } } ); //Remove last of history user list
+            // }
+            res.status(200).json(
+                 {message : 'Added to playlist'}
+            );
+    
+        }  else {
+            res.status(200).json(
+                {message : 'some wrong'}
+           );
+        }
+    
+    });
 
 });
 
