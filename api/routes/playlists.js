@@ -42,7 +42,7 @@ router.get('/:id', (req, res, next) => {
     db.collection('playlists').find({ _id: ObjectId(req.params.id) })
     .toArray(function (arr,playlist){
         objPplaylistTracks = [];
-        var playlistTracks = playlist.playlistTracks;
+        var playlistTracks = playlist[0].playlistTracks;
 
         playlistTracks.forEach(element => {
             objPplaylistTracks.push(ObjectId(element._id));
