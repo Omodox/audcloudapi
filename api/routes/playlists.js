@@ -16,10 +16,23 @@ MongoClient.connect(url, function (err, client) {
 
 router.get('/', (req, res, next) => {
 
-    db.collection('playlists').find().toArray(function (err, docs) {
-        res.status(200).json(docs)
-
-    });
+    var userOwner = req.query.userowner;
+    if (userOwner) {
+        db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+            activeUser = docs[0];
+            if (docs.length > 0) {
+                db.collection('playlists').find({ userOwner: ObjectId(activeUser._id) }).toArray(function (err, docs) {
+                    res.status(200).json(docs)
+                });
+            }
+        });
+   
+    } else {
+        db.collection('playlists').find().toArray(function (err, docs) {
+            res.status(200).json(docs)
+        });
+    }
+    
 
 });
 
