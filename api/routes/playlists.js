@@ -42,7 +42,7 @@ router.get('/:id', (req, res, next) => {
     db.collection('playlists').find({ _id: ObjectId(req.params.id) })
     .toArray(function (arr,playlist){
         objPplaylistTracks = [];
-        var playlistTracks = playlistTracks;
+        var playlistTracks = playlist.playlistTracks;
 
         playlistTracks.forEach(element => {
             objPplaylistTracks.push(ObjectId(element._id));
@@ -70,8 +70,8 @@ router.get('/:id', (req, res, next) => {
     });
             
 
-
 });
+
 
 //  Bad 
 router.delete('/:id', function (req, res) {
