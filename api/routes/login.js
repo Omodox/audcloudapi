@@ -47,12 +47,12 @@ function encrypt(text){
 
 router.delete('/', function (req, res) {
 
-    db.collection('users').update(
-        { "sessions.token" :req.token}, 
-        { $pull: { "sessions" : { token: req.token } } },
-    false,
-    true 
-    );
+    // db.collection('users').update(
+    //     { "sessions.token" :req.token}, 
+    //     { $pull: { "sessions" : { token: req.token } } },
+    // false,
+    // true 
+    // );
     res.status(200).json({
         message: 'token removed'
     });
