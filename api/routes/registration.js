@@ -36,13 +36,19 @@ function encrypt(text){
     var token = passwordHash + Math.floor(new Date() / 1000);
     var userToken = encrypt(token);
 
+    var newSession = {
+        token: userToken,
+        createdDate : new Date(),
+    }
+
+
     var user = {
         userEmail: element.userEmail,
         userName: element.userName,
         createdDate: new Date(),
         passwordHash: passwordHash,
         role: "user",
-        sessions: userToken,
+        sessions: newSession,
     };
 
     if (element.userEmail && element.userName && element.userPassword) {
