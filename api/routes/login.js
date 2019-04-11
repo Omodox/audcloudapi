@@ -45,7 +45,8 @@ function encrypt(text){
 
 });
 
-router.delete('/',(req,res,next) => {
+router.delete('/', function (req, res) {
+
     db.collection('users').update(
         { "sessions.token" :req.token}, 
         { $pull: { "sessions" : { token: req.token } } },
@@ -55,7 +56,11 @@ router.delete('/',(req,res,next) => {
     res.status(200).json({
         message: 'token removed'
     });
+
+
 });
+
+
 
   
   router.post('/', function (req, res) {
