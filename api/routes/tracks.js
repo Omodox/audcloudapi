@@ -38,8 +38,14 @@ router.get('/:id', (req, res, next) => {
 
     var trackId = req.params.id;
     db.collection('tracks').find({ _id: ObjectId(trackId) }).sort({ "rating": -1 }).toArray(function (err, docs) {
-        res.status(200).json(docs);
-    });
+       
+        if (docs.length > 0) {
+            res.status(200).json(docs);
+        } else {
+            res.status(200).json([]);
+        }
+    }
+    );
 
 
 });
