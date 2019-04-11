@@ -29,7 +29,7 @@ router.post('/', function (req, res) {
 
     });
             //update user history
-        db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+        db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
     
             if (docs.length > 0) {
                 activeUser = docs[0];

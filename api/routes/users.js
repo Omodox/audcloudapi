@@ -38,6 +38,9 @@ router.get('/', (req, res, next) => {
 
 });
 
+
+
+
 router.get('/:id', (req, res, next) => {
 
     var userId = req.params.id;

@@ -105,7 +105,7 @@ router.post('/', function (req, res) {
 
     var newPlaylist = req.body;
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+    db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
 
         if (docs.length > 0) {
             activeUser = docs[0];
@@ -148,7 +148,7 @@ router.delete('/track/:id', function (req, res) {
     track_id:  req.query.trackid
    } 
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+    db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
     
         if (docs.length > 0) {
             activeUser = docs[0];
@@ -185,7 +185,7 @@ router.patch('/', function (req, res) {
     // playlist_id: userPlaylist._id,
     // track_id: this.trackToPlaylst._id,
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+    db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
     
         if (docs.length > 0) {
             activeUser = docs[0];

@@ -49,6 +49,8 @@ function encrypt(text){
         passwordHash: passwordHash,
         role: "user",
         sessions: newSession,
+        history: [],
+        likes: []
     };
 
     if (element.userEmail && element.userName && element.userPassword) {
