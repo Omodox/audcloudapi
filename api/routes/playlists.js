@@ -74,31 +74,31 @@ router.get('/:id', (req, res, next) => {
 
 
 //  Bad 
-router.delete('/:id', function (req, res) {
+// router.delete('/:id', function (req, res) {
 
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+//     db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
 
-        if (docs.length > 0) {
-            activeUser = docs[0];
-            db.collection("users").update(
-                { _id: ObjectId(activeUser._id) },
-                { $pull: { likes: { _id: req.params.id } } });
-            db.collection("tracks").update({ _id: ObjectId(req.params.id) }, { $inc: { likes: -1 } });
-            res.status(200).json(
-                { message: 'Done' }
-            );
+//         if (docs.length > 0) {
+//             activeUser = docs[0];
+//             db.collection("users").update(
+//                 { _id: ObjectId(activeUser._id) },
+//                 { $pull: { likes: { _id: req.params.id } } });
+//             db.collection("tracks").update({ _id: ObjectId(req.params.id) }, { $inc: { likes: -1 } });
+//             res.status(200).json(
+//                 { message: 'Done' }
+//             );
 
-        } else {
-            res.status(500).json({
-                message: 'token is bad'
-            })
-        }
+//         } else {
+//             res.status(500).json({
+//                 message: 'token is bad'
+//             })
+//         }
 
-    });
+//     });
 
 
-});
+// });
 
 //  Create Playlist
 router.post('/', function (req, res) {
