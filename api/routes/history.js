@@ -18,6 +18,13 @@ router.get('/', (req, res, next) => {
     db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
         if (docs.length > 0) {
             var activeUser = docs[0];
+            if (!activeUser.history || activeUser.likes.history == 0) {
+              
+                res.status(200).json(
+                   {message: 'list is null'}
+                );
+            return true;
+        }
             var history = activeUser.history;
             var objHistoryId = [];
             history.forEach(element => {
