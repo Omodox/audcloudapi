@@ -50,19 +50,24 @@ function encrypt(text){
     var element = req.body;
     var passwordHash = encrypt(element.userPassword);
     var token = element.userEmail + passwordHash + Math.floor(new Date() / 1000);
-    var session = encrypt(token);
+    var token = encrypt(token);
 
     var user = {
         userEmail: element.userEmail,
         passwordHash: passwordHash,
     };
+    
+    var newSession = {
+        token: token,
+        createdDate : new Date(),
+    }
 
     if (element.userEmail && element.userPassword) {
         db.collection('users').find(user).toArray(function (err,docs) {
             if (docs.length > 0) {
-                db.collection('users').update(user,{$set: {sessions: session} });
+                db.collection('users').update(user,{$set: {sessions: newSession} });
                 res.status(200).json({
-                    token: session,
+                    token: token,
                     role: docs[0].role
                 });
             } else {
