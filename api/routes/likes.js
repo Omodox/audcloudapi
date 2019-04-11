@@ -46,7 +46,7 @@ router.get('/', (req, res, next) => {
 
                     if (NewTracks.length = 0) {
                         res.status(200).json(
-                            []
+                            {message: 'list is null'}
                         );
                     } else {
                         res.status(200).json(
