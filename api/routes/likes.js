@@ -44,10 +44,18 @@ router.get('/', (req, res, next) => {
                         return new Date(b.addedDate) - new Date(a.addedDate);
                     });
 
+                    if (NewTracks.length = 0) {
+                        res.status(200).json(
+                            []
+                        );
+                    } else {
+                        res.status(200).json(
+                            NewTracks
+                        );
+                    }
 
-                    res.status(200).json(
-                        NewTracks
-                    );
+
+                  
                 });
         } else {
             res.status(500).json({
