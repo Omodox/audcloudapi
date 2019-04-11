@@ -15,8 +15,8 @@ MongoClient.connect(url, function (err, client) {
 // 
 
 
-var getUser = function() {
-    db.collection('users').find({ sessions :{ $elemMatch: {token: req.token}}}).toArray(function (err, docs) {
+var getUser = function(userToken) {
+    db.collection('users').find({ sessions :{ $elemMatch: {token: userToken}}}).toArray(function (err, docs) {
         if (docs.length > 0) {
             var activeUser = docs[0];
             console.log(activeUser);

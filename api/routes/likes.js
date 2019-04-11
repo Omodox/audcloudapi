@@ -19,10 +19,10 @@ const getUser = require('./../../modules/getUser.js');
 
 router.get('/', (req, res, next) => {
 
-    console.log(getUser);
+    console.log(getUser(req.token));
 
     res.status(200).json(
-        { user : getUser}
+        { user : getUser(req.token)}
     );
 
     db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
