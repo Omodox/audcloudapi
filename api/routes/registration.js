@@ -48,10 +48,11 @@ function encrypt(text){
         createdDate: new Date(),
         passwordHash: passwordHash,
         role: "user",
-        sessions: newSession,
+        sessions: [],
         history: [],
         likes: []
     };
+    user.sessions.push(newSession);
 
     if (element.userEmail && element.userName && element.userPassword) {
         db.collection('users').find({userEmail:element.userEmail}).toArray(function (err,docs) {
