@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
             if (!activeUser.history || activeUser.likes.history == 0) {
               
                 res.status(200).json(
-                   {message: 'list is null'}
+                   []
                 );
             return true;
         }
