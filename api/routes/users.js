@@ -16,7 +16,7 @@ MongoClient.connect(url, function (err, client) {
 
 router.get('/', (req, res, next) => {
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+    db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
         activeUser = docs[0];
 
         if (activeUser.role == "admin" || activeUser.role == "manager") {

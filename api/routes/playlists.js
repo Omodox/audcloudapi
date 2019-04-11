@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
 
     var playlistOwner = req.query.playlistowner;
     if (playlistOwner) {
-        db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+        db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
             activeUser = docs[0];
             if (docs.length > 0) {
                 db.collection('playlists').find({ playlistOwner: ObjectId(activeUser._id) }).toArray(function (err, docs) {

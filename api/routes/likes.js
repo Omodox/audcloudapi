@@ -64,7 +64,7 @@ router.get('/', (req, res, next) => {
 router.delete('/:id', function (req, res) {
 
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+    db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
 
         if (docs.length > 0) {
             activeUser = docs[0];
@@ -96,7 +96,7 @@ router.post('/', function (req, res) {
 
     var like = req.body;
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+    db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
 
         if (docs.length > 0) {
             activeUser = docs[0];

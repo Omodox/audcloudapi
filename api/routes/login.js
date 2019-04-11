@@ -29,7 +29,7 @@ function encrypt(text){
 
   router.get('/', (req, res, next) => {
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+    db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
         if (docs.length > 0) {
             res.status(200).json( {
                 role : docs[0].role

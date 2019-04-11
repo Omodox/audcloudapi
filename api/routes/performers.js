@@ -25,7 +25,7 @@ router.get('/', function (req, res) {
 
 router.delete('/:id', function (req, res) {
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+    db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
 
         activeUser = docs[0];
         if (activeUser.role == "admin") {
@@ -57,7 +57,7 @@ router.patch('/', function (req, res) {
     var performer_Id = newPatchPerformer._id;
     delete newPatchPerformer._id;
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+    db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
 
         activeUser = docs[0];
 

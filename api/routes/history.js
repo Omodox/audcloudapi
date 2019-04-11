@@ -15,7 +15,7 @@ const dbName = 'audcloud';
 
 router.get('/', (req, res, next) => {
 
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+    db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
         if (docs.length > 0) {
             var activeUser = docs[0];
             var history = activeUser.history;
