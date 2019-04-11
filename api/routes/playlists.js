@@ -140,7 +140,7 @@ router.post('/', function (req, res) {
 
 
 });
-
+// delete track from playlist
 router.delete('/track', function (req, res) {
     var removeFromPlaylist = req.body;
 
@@ -149,7 +149,7 @@ router.delete('/track', function (req, res) {
         if (docs.length > 0) {
             activeUser = docs[0];
             var addedDate = new Date();
-            db.collection("playlists").update({ _id: ObjectId(removeFromPlaylist.playlist_id), playlistOwner: ObjectId(activeUser._id)},{ $pull: { playlistTracks: { _id : removeFromPlaylist.track_id } } } ); // remove from User list 
+            db.collection("playlists").update({ _id: ObjectId(removeFromPlaylist.playlist_id), playlistOwner: ObjectId(activeUser._id)},{ $pull: { playlistTracks: { _id : ObjectId(removeFromPlaylist.track_id)} } } ); // remove from User list 
 
             res.status(200).json(
                  {message : 'Removed from playlist'}
