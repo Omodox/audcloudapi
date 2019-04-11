@@ -47,7 +47,7 @@ function encrypt(text){
 
 router.delete('/', function (req, res) {
 
-    db.collection("playlists").update(
+    db.collection("users").update(
         { "sessions.token" :req.token}, 
         { $pull: { "sessions" : { token: req.token } } }
     ); 
