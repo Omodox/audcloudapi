@@ -60,8 +60,8 @@ function encrypt(text){
     var newSession = {
         token: token,
         createdDate : new Date(),
-        testfild: '1', 
     }
+
 
     if (element.userEmail && element.userPassword) {
         db.collection('users').find(user).toArray(function (err,docs) {
