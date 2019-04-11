@@ -12,18 +12,7 @@ MongoClient.connect(url, function (err, client) {
 });
 
 
-// 
-// { sessions :{ $elemMatch: {token: userToken}}}
 
-var getUser = function(userToken) {
-    db.collection('users').find().toArray(function (err, docs) {
-        if (docs.length > 0) {
-            var activeUser = docs[0];
-            console.log(activeUser);
-            return activeUser;
-        }
-    });
-}
 
 
 

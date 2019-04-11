@@ -11,7 +11,7 @@ MongoClient.connect(url, function (err, client) {
     db = client.db(dbName);
 });
 
-const getUser = require('./../../modules/getUser.js');
+// const getUser = require('./../../modules/getUser.js');
 
 
 // 
@@ -19,13 +19,8 @@ const getUser = require('./../../modules/getUser.js');
 
 router.get('/', (req, res, next) => {
 
-    console.log(getUser(req.token));
-
-    res.status(200).json(
-        { user : getUser(req.token)}
-    );
-
-    db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
+   
+    db.collection('users').find({ sessions :{ $elemMatch: {token: req.token}}}).toArray(function (err, docs) {
         if (docs.length > 0) {
             var activeUser = docs[0];
             var likes = activeUser.likes;
@@ -55,9 +50,9 @@ router.get('/', (req, res, next) => {
                     );
                 });
         } else {
-            // res.status(500).json({
-            //     message: 'Bad token'
-            // });
+            res.status(500).json({
+                message: 'Bad token'
+            });
         }
 
     });
