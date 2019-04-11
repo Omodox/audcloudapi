@@ -23,6 +23,13 @@ router.get('/', (req, res, next) => {
     db.collection('users').find({ "sessions.token" :req.token} ).toArray(function (err, docs) {
         if (docs.length > 0) {
             var activeUser = docs[0];
+            if (!activeUser.likes || activeUser.likes.length == 0) {
+              
+                    res.status(200).json(
+                       []
+                    );
+                return true;
+            }
             var likes = activeUser.likes;
             var objLikesId = [];
             likes.forEach(element => {
@@ -32,6 +39,7 @@ router.get('/', (req, res, next) => {
 
             db.collection('tracks').find({ _id: { $in: objLikesId } })
                 .toArray(function (arr, tracks) {
+
 
                     var NewTracks = [];
                     likes.forEach(element => {
@@ -44,15 +52,11 @@ router.get('/', (req, res, next) => {
                         return new Date(b.addedDate) - new Date(a.addedDate);
                     });
 
-                    if (NewTracks.length = 0) {
-                        res.status(200).json(
-                            {message: 'list is null'}
-                        );
-                    } else {
+                  
                         res.status(200).json(
                             NewTracks
                         );
-                    }
+                    
 
 
                   
