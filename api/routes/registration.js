@@ -33,7 +33,7 @@ function encrypt(text){
 
 
     var passwordHash = encrypt(element.userPassword);
-    var token = passwordHash + Math.floor(new Date() / 1000);
+    var token = element.userEmail + passwordHash + Math.floor(new Date() / 1000);
     var userToken = encrypt(token);
 
     var newSession = {
