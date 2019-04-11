@@ -11,7 +11,7 @@ MongoClient.connect(url, function (err, client) {
     db = client.db(dbName);
 });
 
-const getUser = require('../modules/getUser.js');
+const getUser = require('././modules/getUser.js');
 
 
 // 
