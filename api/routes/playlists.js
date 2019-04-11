@@ -141,18 +141,28 @@ router.post('/', function (req, res) {
 
 });
 // delete track from playlist
-router.delete('/track', function (req, res) {
-    var removeFromPlaylist = req.body;
+router.delete('/track/:id', function (req, res) {
+   
+   var removeFromPlaylist = {
+    playlist_id : req.params.id,
+    track_id:  req.query.trackid
+   } 
 
     db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
     
         if (docs.length > 0) {
             activeUser = docs[0];
             var addedDate = new Date();
+
+            // db.collection("playlists").update(
+            //     { _id: ObjectId(activeUser._id) },
+            //     { $pull: { likes: { _id: req.params.id } } });
+
             db.collection("playlists").update(
                 { _id: ObjectId(removeFromPlaylist.playlist_id), playlistOwner: ObjectId(activeUser._id)},
                 { $pull: { playlistTracks: { _id : removeFromPlaylist.track_id} } } ); // remove from User list 
 
+                
             res.status(200).json(
                  {message : 'Removed from playlist'}
             );
