@@ -45,6 +45,18 @@ function encrypt(text){
 
 });
 
+router.delete('/',(req,res,next) => {
+    db.collection('users').update(
+        { "sessions.token" :req.token}, 
+        { $pull: { "sessions" : { token: req.token } } },
+    false,
+    true 
+    );
+    res.status(200).json({
+        message: 'token removed'
+    });
+});
+
   
   router.post('/', function (req, res) {
     var element = req.body;
@@ -79,5 +91,8 @@ function encrypt(text){
         });
     }
 });
+
+
+
 
 module.exports = router;
