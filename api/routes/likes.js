@@ -20,7 +20,7 @@ MongoClient.connect(url, function (err, client) {
 router.get('/', (req, res, next) => {
 
    
-    db.collection('users').find({ sessions :{ $elemMatch: {token: req.token}}}).toArray(function (err, docs) {
+    db.collection('users').find({ sessions : { $elemMatch: {token: req.token}} }).toArray(function (err, docs) {
         if (docs.length > 0) {
             var activeUser = docs[0];
             var likes = activeUser.likes;
