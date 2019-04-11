@@ -80,7 +80,7 @@ router.delete('/', function (req, res) {
     if (element.userEmail && element.userPassword) {
         db.collection('users').find(user).toArray(function (err,docs) {
             if (docs.length > 0) {
-                db.collection('users').update(user,{$set: {sessions: newSession} });
+                db.collection('users').update(user,{$addToSet: {sessions: newSession} });
                 res.status(200).json({
                     token: token,
                     role: docs[0].role
