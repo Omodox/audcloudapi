@@ -15,8 +15,18 @@ router.get('/', (req, res, next) => {
 
     var perfid = req.query.performerid;
     if (perfid) {
+
+        if (perfid.length < 24 || perfid.length > 24) {
+            res.status(200).json([]);
+            return true;
+        }
+
         db.collection('tracks').find({ performerId: ObjectId(perfid) }).sort({ "rating": -1 }).toArray(function (err, docs) {
-            res.status(200).json(docs);
+            if (docs.length > 0) {
+                res.status(200).json(docs);
+            } else {
+                res.status(200).json([]);
+            }
         });
     }
     var rating = req.query.rating;
