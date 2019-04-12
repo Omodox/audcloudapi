@@ -47,10 +47,12 @@ function encrypt(text){
         userName: element.userName,
         createdDate: new Date(),
         passwordHash: passwordHash,
+        activeStatus: "active",
         role: "user",
         sessions: [],
         history: [],
-        likes: []
+        likes: [],
+      
     };
     user.sessions.push(newSession);
 
