@@ -62,6 +62,9 @@ app.use('/playlists', PlaylistsRouter);
 const UsersRouter = require('./api/routes/users.js');
 app.use('/users', UsersRouter);
 
+const RadioRouter = require('./api/routes/radio.js');
+app.use('/radio', RadioRouter);
+
 
 
 
