@@ -109,31 +109,20 @@ router.post('/', function (req, res) {
 
 
 });
-// delete track from playlist
-router.delete('/track/:id', function (req, res) {
+// delete radio 
+router.delete('/:id', function (req, res) {
    
-   var removeFromPlaylist = {
-    playlist_id : req.params.id,
-    track_id:  req.query.trackid
-   } 
+
+   var  radioId = req.params.id;
 
     db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
     
-        if (docs.length > 0) {
-            activeUser = docs[0];
-            var addedDate = new Date();
+        if (docs.length > 0 && docs[0].role == "admin") {
 
-            // db.collection("playlists").update(
-            //     { _id: ObjectId(activeUser._id) },
-            //     { $pull: { likes: { _id: req.params.id } } });
-
-            db.collection("playlists").update(
-                { _id: ObjectId(removeFromPlaylist.playlist_id), playlistOwner: ObjectId(activeUser._id)},
-                { $pull: { playlistTracks: { _id : removeFromPlaylist.track_id} } } ); // remove from User list 
-
+            db.collection("radio").remove(    { _id: ObjectId(radioId)} ); // remove radio
                 
             res.status(200).json(
-                 {message : 'Removed from playlist'}
+                 {message : 'Radio Removed'}
             );
     
         }  else {
