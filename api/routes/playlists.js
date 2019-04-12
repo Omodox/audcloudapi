@@ -73,32 +73,36 @@ router.get('/:id', (req, res, next) => {
 });
 
 
-//  Bad 
-// router.delete('/:id', function (req, res) {
+// delete playlist 
+router.delete('/:id', function (req, res) {
+   
 
+    var  playlistId = req.params.id;
+ 
+     db.collection('users').find({ "sessions.token" :req.token}).toArray(function (err, docs) {
+        var activeUser = docs[0];
+         if (docs.length > 0 ) {
 
-//     db.collection('users').find({ sessions: req.token }).toArray(function (err, docs) {
-
-//         if (docs.length > 0) {
-//             activeUser = docs[0];
-//             db.collection("users").update(
-//                 { _id: ObjectId(activeUser._id) },
-//                 { $pull: { likes: { _id: req.params.id } } });
-//             db.collection("tracks").update({ _id: ObjectId(req.params.id) }, { $inc: { likes: -1 } });
-//             res.status(200).json(
-//                 { message: 'Done' }
-//             );
-
-//         } else {
-//             res.status(500).json({
-//                 message: 'token is bad'
-//             })
-//         }
-
-//     });
-
-
-// });
+            if (activeUser.role == 'admin') {
+                db.collection("playlist").remove(    { _id: ObjectId(playlistId)} ); // remove playlist
+            } else {
+                db.collection("playlist").remove( { _id: ObjectId(playlistId), playlistOwner: ObjectId(activeUser._id)} ); // remove my playlist
+            }
+                 
+             res.status(200).json(
+                  {message : 'Playlist Removed'}
+             );
+     
+         }  else {
+             res.status(200).json(
+                 {message : 'some wrong'}
+            );
+         }
+     
+     });
+ 
+ 
+  });
 
 //  Create Playlist
 router.post('/', function (req, res) {
