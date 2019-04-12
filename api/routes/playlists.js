@@ -84,9 +84,9 @@ router.delete('/:id', function (req, res) {
          if (docs.length > 0 ) {
 
             if (activeUser.role == 'admin') {
-                db.collection("playlist").remove(    { _id: ObjectId(playlistId)} ); // remove playlist
+                db.collection("playlists").remove(    { _id: ObjectId(playlistId)} ); // remove playlist
             } else {
-                db.collection("playlist").remove( { _id: ObjectId(playlistId), playlistOwner: ObjectId(activeUser._id)} ); // remove my playlist
+                db.collection("playlists").remove( { _id: ObjectId(playlistId), playlistOwner: ObjectId(activeUser._id)} ); // remove my playlist
             }
                  
              res.status(200).json(
