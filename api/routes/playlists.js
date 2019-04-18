@@ -72,6 +72,23 @@ router.get('/:id', (req, res, next) => {
 
 });
 
+// Get playlist
+router.get('/info/:id', (req, res, next) => {
+
+    var playlistId = req.params.id;
+
+    db.collection('playlists').find({ _id: ObjectId(req.params.id) })
+    .toArray(function (arr,playlist){
+
+         //    
+         res.status(200).json(
+            playlist[0]
+        );
+        });
+
+    });
+            
+
 
 // delete playlist 
 router.delete('/:id', function (req, res) {
