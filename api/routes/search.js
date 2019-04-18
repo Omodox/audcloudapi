@@ -31,7 +31,7 @@ router.get('/', function (req, res) {
      });
     db.collection('tracks').find({ keys: { $all: searchArray } }).sort({"rating" : -1}).toArray(function (err,docs) {
 
-         if (docs.length < 4) {
+         if (docs.length == 0) {
             request({
                 method: 'GET',
                 url: telegramUrl,
