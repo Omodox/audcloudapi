@@ -70,17 +70,12 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', function (req, res) {
 
-    console.log(req.body);
     var item = req.result;
-    item.keys = item.productTitle.concat(track.trackName.split(' '));
+    item.keys =   item.productTitle.split(' ');
     item.audtions = 0;
 
 
     db.collection('items').find({ productId : item.productId }).toArray(function (err, docs) {
-
-        var keys = element.performerName.split(' ');
-        var trackKeys = keys.concat(track.trackName.split(' '));
-        track.keys = trackKeys;
         if (docs.length  == 0) {
             db.collection('items').insertOne(item, function (err, docsInserted) {
 
