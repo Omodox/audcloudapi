@@ -74,49 +74,9 @@ router.post('/', function (req, res) {
     item.keys =   item.productTitle.split(' ');
     item.audtions = 0;
 
-
-    db.collection('items').find({ productId : item.productId }).toArray(function (err, docs) {
-        if (docs.length  == 0) {
             db.collection('items').insertOne(item, function (err, docsInserted) {
-
                 res.send(item);
-     
             });
-
-            }
-        
-
-    });
-
-
-
-      
-     
-
-    function createTrack() {
-        var searchParameter = {
-            $or: [
-                {
-                    $and:
-                        [
-                            { performerName: track.performerName },
-                            { trackName: track.trackName },
-
-                        ]
-                },
-                { zId: track.zId }
-            ]
-
-        };
-        db.collection('tracks').find(searchParameter).toArray(function (err, docs) {
-            if (docs == '') {
-                db.collection('tracks').insert(track);
-            }
-        });
-    }
-
-
-    res.send(req.body.perfromerName);
 
 });
 
