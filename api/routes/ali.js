@@ -49,7 +49,7 @@ router.get('/:id', (req, res, next) => {
     var productId = req.params.id;
 
 
-    db.collection('items').find({ productId: productId }).toArray(function (err, docs) {
+    db.collection('items').find({ productId: parseInt(productId) }).toArray(function (err, docs) {
        
         if (docs.length > 0) {
             res.status(200).json(docs);
@@ -67,7 +67,7 @@ router.get('/:id', (req, res, next) => {
 router.post('/', function (req, res) {
     var item = req.body;
     var productId = item.productId;
-    db.collection('items').find({ productId: productId }).toArray(function (err, docs) {
+    db.collection('items').find({ productId: parseInt(productId) }).toArray(function (err, docs) {
        
         if (docs.length == 0) {
             db.collection('items').insertOne(item, function (err, docsInserted) {
