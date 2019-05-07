@@ -64,6 +64,10 @@ const UsersRouter = require('./api/routes/users.js');
 app.use('/users', UsersRouter);
 
 
+const AliRouter = require('./api/routes/ali.js');
+app.use('/ali', AliRouter);
+
+
 
 app.use((req,res,next) => {
     const error = new Error('Not found');

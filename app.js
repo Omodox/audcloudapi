@@ -65,7 +65,9 @@ app.use('/users', UsersRouter);
 const RadioRouter = require('./api/routes/radio.js');
 app.use('/radio', RadioRouter);
 
-
+// ali
+const AliRouter = require('./api/routes/ali.js');
+app.use('/ali', AliRouter);
 
 
 
