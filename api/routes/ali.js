@@ -46,14 +46,10 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
 
-    var trackId = req.params.id;
+    var productId = req.params.id;
 
-    if (trackId.length < 24 || trackId.length > 24) {
-        res.status(200).json([]);
-        return true;
-    }
 
-    db.collection('tracks').find({ _id: ObjectId(trackId) }).sort({ "rating": -1 }).toArray(function (err, docs) {
+    db.collection('items').find({ productId: productId }).toArray(function (err, docs) {
        
         if (docs.length > 0) {
             res.status(200).json(docs);
@@ -70,14 +66,17 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', function (req, res) {
     var item = req.body;
-
-    db.collection('items').insertOne(item, function (err, docsInserted) {
-
+    var productId = item.productId;
+    db.collection('items').find({ productId: productId }).toArray(function (err, docs) {
+       
+        if (docs.length == 0) {
+            db.collection('items').insertOne(item, function (err, docsInserted) {
+            });
+            res.status(200).json(item);
+        } else {
+            res.status(200).json([]);
+        }
     });
-    res.status(200).json(
-        item
-    );
-
 
    
 });
