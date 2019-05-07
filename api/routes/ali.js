@@ -70,7 +70,7 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', function (req, res) {
 
-    var item = req.result;
+    var item = req;
     item.keys =   item.productTitle.split(' ');
     item.audtions = 0;
 
