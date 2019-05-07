@@ -75,7 +75,7 @@ router.post('/', function (req, res) {
     item.audtions = 0;
 
             db.collection('items').insertOne(item, function (err, docsInserted) {
-                console.log(err);
+                // console.log(err);
                 res.send(item);
             },
         );
