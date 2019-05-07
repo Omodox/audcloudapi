@@ -68,19 +68,19 @@ router.get('/:id', (req, res, next) => {
 
 
 
-// router.post('/', function (req, res) {
+router.post('/', function (req, res) {
+    var item = req.body;
 
-//     var item = req;
-//     item.keys =   item.productTitle.split(' ');
-//     item.audtions = 0;
+    db.collection('items').insertOne(item, function (err, docsInserted) {
 
-//             db.collection('items').insertOne(item, function (err, docsInserted) {
-//                 // console.log(err);
-//                 res.send(item);
-//             },
-//         );
+    });
+    res.status(200).json(
+        item
+    );
 
-// });
+
+   
+});
 
 
 router.delete('/:id', function (req, res) {
